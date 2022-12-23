@@ -6,9 +6,9 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
-    branches: [ "master" ]
+    branches: ["master"]
   pull_request:
-    branches: [ "master" ]
+    branches: ["master"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -27,15 +27,15 @@ jobs:
 
       - name: Test - yarn dev for 5s
         run: timeout 5 yarn dev || code=$?; if [[ $code -ne 124 && $code -ne 0 ]]; then exit $code; fi
-        
+
       - name: Test - yarn lint
         run: yarn lint
-        
+
       - name: Test - yarn build
         run: yarn build
 
       - name: Test - yarn format
         run: yarn format
-        
+
       - name: Test - yarn lint
         run: yarn lint
