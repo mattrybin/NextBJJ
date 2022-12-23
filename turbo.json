@@ -5,6 +5,12 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", ".next/**"]
     },
+    "dev:test": {
+      "cache": false
+    },
+    "e2e:test": {
+      "dependsOn": ["^build"]
+    },
     "lint": {
       "outputs": []
     },

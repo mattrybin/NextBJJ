@@ -1,0 +1,16 @@
+{
+  "name": "web-tests",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:test": "playwright test",
+    "e2e:test": "start-server-and-test \"(cd ../../apps/web && yarn start)\" http://localhost:3000 \"playwright test\""
+  },
+  "dependencies": {
+    "start-server-and-test": "^1.15.2",
+    "web": "workspace:*"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.29.1"
+  }
+}

@@ -1,0 +1,21 @@
+name: CI
+
+on: push
+
+jobs:
+  build:
+    run-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7.9.2
+      - uses: actions/setup-node@v3
+        with:
+          cache: "pnpm"
+      - run: pnpm install --prefer-offline --frozen-lockfile
+      - run: pnpx playwright install chromium
+      - run: pnpm run ci
+        env:
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+          TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
