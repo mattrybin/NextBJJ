@@ -1,4 +1,3 @@
-import * as React from "react";
-export const Button = () => {
-  return <button>Boop</button>;
-};
+export const Button: React.FunctionComponent<{ text: string }> = ({ text }) => {
+  return <button>{text}</button>
+}
