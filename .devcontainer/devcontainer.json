@@ -3,5 +3,6 @@
   "features": {
     "ghcr.io/NicoVIII/devcontainer-features/pnpm:2": {}
   },
-  "postCreateCommand": "pnpm install"
+  "postCreateCommand": "pnpm install",
+  "postStartCommand": "pnpm dev"
 }
