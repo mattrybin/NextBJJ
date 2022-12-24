@@ -25,17 +25,17 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
 
-      - name: Install yarn
-        run: yarn install --immutable --immutable-cache --check-cache
+      - name: Install pnpm
+        run: pnpm install --prefer-offline --frozen-lockfile
 
-      - name: Test - yarn dev for 5s
-        run: timeout 5 yarn dev || code=$?; if [[ $code -ne 124 && $code -ne 0 ]]; then exit $code; fi
+      - name: Test - pnpm dev for 5s
+        run: timeout 5 pnpm dev || code=$?; if [[ $code -ne 124 && $code -ne 0 ]]; then exit $code; fi
 
-      - name: Test - yarn lint
-        run: yarn lint
+      - name: Test - pnpm lint
+        run: pnpm lint
 
-      - name: Test - yarn build
-        run: yarn build
+      - name: Test - pnpm build
+        run: pnpm build
 
       - name: Test - yarn format
         run: yarn format
