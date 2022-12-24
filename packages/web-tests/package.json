@@ -11,6 +11,7 @@
     "web": "workspace:*"
   },
   "devDependencies": {
-    "@playwright/test": "^1.29.1"
+    "@playwright/test": "^1.29.1",
+    "tsconfig": "workspace:*"
   }
 }

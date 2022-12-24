@@ -126,12 +126,14 @@ importers:
     specifiers:
       '@playwright/test': ^1.29.1
       start-server-and-test: ^1.15.2
+      tsconfig: workspace:*
       web: workspace:*
     dependencies:
       start-server-and-test: 1.15.2
       web: link:../../apps/web
     devDependencies:
       '@playwright/test': 1.29.1
+      tsconfig: link:../tsconfig
 
 packages:
 

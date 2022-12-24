@@ -7,6 +7,7 @@
     "packages/*"
   ],
   "scripts": {
+    "e2e": "turbo run e2e:test",
     "ci": "turbo run build e2e:test lint",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
