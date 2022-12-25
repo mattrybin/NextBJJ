@@ -3,14 +3,19 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev:test": "playwright test",
-    "e2e:test": "start-server-and-test \"(cd ../../apps/web && yarn start)\" http://localhost:3000 \"playwright test\""
+    "dev:test": "pnpm test:e2e",
+    "e2e:test": "start-server-and-test \"(cd ../../apps/web && yarn start)\" http://localhost:3000 \"pnpm test:e2e\"",
+    "test:e2e": "cucumber-js --publish-quiet --require cucumber.conf.js --require steps/**/*.js --format @cucumber/pretty-formatter"
   },
   "dependencies": {
+    "playwright": "^1.29.1",
     "start-server-and-test": "^1.15.2",
     "web": "workspace:*"
   },
   "devDependencies": {
+    "@cucumber/cucumber": "^8.9.1",
+    "@cucumber/messages": "*",
+    "@cucumber/pretty-formatter": "^1.0.0",
     "@playwright/test": "^1.29.1",
     "tsconfig": "workspace:*"
   }
