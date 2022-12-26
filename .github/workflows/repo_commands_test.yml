@@ -30,7 +30,4 @@ jobs:
         run: pnpm build
 
       - name: Test - yarn format
-        run: yarn format
-
-      - name: Test - yarn lint
-        run: yarn lint
+        run: pnpm format
