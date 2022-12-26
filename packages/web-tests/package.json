@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev:test": "pnpm test:e2e",
-    "e2e:test": "start-server-and-test \"(cd ../../apps/web && yarn start)\" http://localhost:3000 \"pnpm test:e2e\"",
+    "e2e:test": "start-server-and-test \"(cd ../../apps/web && pnpm start)\" http://localhost:3000 \"pnpm test:e2e\"",
     "test:e2e": "cucumber-js --publish-quiet --require cucumber.conf.js --require steps/**/*.js --format @cucumber/pretty-formatter"
   },
   "dependencies": {
