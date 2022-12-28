@@ -4,7 +4,7 @@ const { expect } = require("@playwright/test");
 Given('I am on the {string} page', async (string) => {
     switch (string) {
         case "home":
-            return await page.goto('http://localhost:3000')
+            return await page.goto('http://localhost:3100')
         default:
             throw new Error(`${string} is not a supported page name`)
     }
