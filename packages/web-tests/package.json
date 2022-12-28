@@ -6,7 +6,7 @@
     "start:web": "(cd ../../apps/web && pnpm start)",
     "dev:test": "pnpm test:e2e",
     "e2e:test": "start-server-and-test 'pnpm start:web' http-get://127.0.0.1:3100 'pnpm test:e2e'",
-    "test:e2e": "cucumber-js --publish-quiet --require cucumber.conf.js --require steps/**/*.js --format @cucumber/pretty-formatter"
+    "test:e2e": "cucumber-js --publish-quiet --require cucumber.conf.js --require steps/**/*.js"
   },
   "dependencies": {
     "playwright": "^1.29.1",
