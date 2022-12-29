@@ -1,5 +1,5 @@
 ## Detailed Description
 
-## Context
+## Context (What benefit for user?)
 
 ## Possible Implementation
