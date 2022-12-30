@@ -1,0 +1,7 @@
+{
+  "hooks": {
+    "pre-push": "bash husky/pre-push",
+    "pre-commit": "bash husky/pre-push"
+    
+  }
+}

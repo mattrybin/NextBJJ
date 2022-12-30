@@ -11,13 +11,13 @@
   "dependencies": {
     "playwright": "^1.29.1",
     "start-server-and-test": "^1.15.2",
-    "web": "workspace:*"
+    "web": "0.0.0"
   },
   "devDependencies": {
-    "@cucumber/cucumber": "^8.9.1",
+    "@cucumber/cucumber": "^8.10.0",
     "@cucumber/messages": "*",
     "@cucumber/pretty-formatter": "^1.0.0",
     "@playwright/test": "^1.29.1",
-    "tsconfig": "workspace:*"
+    "tsconfig": "0.0.0"
   }
 }

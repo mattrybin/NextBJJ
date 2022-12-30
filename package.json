@@ -7,6 +7,8 @@
     "packages/*"
   ],
   "scripts": {
+    "test:manypkg": "manypkg check",
+    "test:e2e": "turbo run e2e:test",
     "e2e": "turbo run e2e:test",
     "ci": "turbo run build e2e:test lint",
     "build": "turbo run build",
@@ -14,13 +16,6 @@
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "chmod +x ./node_modules/husky/lib/bin.js && husky install"
-  },
-  "devDependencies": {
-    "eslint-config-custom": "*",
-    "husky": "^8.0.2",
-    "lint-staged": "^13.1.0",
-    "prettier": "latest",
-    "turbo": "^1.6.3"
   },
   "engines": {
     "node": ">=14.0.0"
@@ -33,5 +28,13 @@
     "*.json": [
       "prettier --write"
     ]
+  },
+  "dependencies": {
+    "@manypkg/cli": "^0.19.2",
+    "eslint-config-custom": "*",
+    "husky": "^8.0.2",
+    "lint-staged": "^13.1.0",
+    "prettier": "latest",
+    "turbo": "^1.6.3"
   }
 }
