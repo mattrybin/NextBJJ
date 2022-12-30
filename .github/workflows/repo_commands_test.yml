@@ -29,5 +29,5 @@ jobs:
       - name: Test - pnpm build
         run: pnpm build
 
-      - name: Test - yarn format
+      - name: Test - pnpm format
         run: pnpm format
