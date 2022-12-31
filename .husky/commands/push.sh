@@ -51,10 +51,10 @@ then
   -d "{\"issue\":$ISSUE,\"head\":\"issue-$ISSUE\",\"base\":\"master\"}" &&
   exit 1
 else
-  echo "HELLO" && 
-  if [[ -n $(git status --porcelain) ]]; then echo "repo is dirty"; fi &&
-  if [[ $(git status --porcelain) ]]; then echo "repo is clean"; fi &&
+  echo "HELLO"
+  if [[ -n $(git status --porcelain) ]]; then echo "repo is dirty"; fi
+  if [[ $(git status --porcelain) ]]; then echo "repo is clean"; fi
   exit 1
 fi
 
-if [[ -n $(git status --porcelain) ]]; then echo "repo is dirty"; fi
+# if [[ -n $(git status --porcelain) ]]; then echo "repo is dirty"; fi
