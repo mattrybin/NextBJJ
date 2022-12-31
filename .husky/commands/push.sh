@@ -38,6 +38,7 @@ done
 
 echo "The branch is clean"
 
+
 # git status -sb | grep "ahead"
 
 # ISSUE=$(printenv | 
