@@ -50,4 +50,6 @@ then
   https://api.github.com/repos/mattrybin/nextbjj/pulls \
   -d "{\"issue\":$ISSUE,\"head\":\"issue-$ISSUE\",\"base\":\"master\"}" &&
   exit 1
+else
+  echo "HELLO" && exit 1
 fi
