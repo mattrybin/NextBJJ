@@ -33,8 +33,8 @@ grep -Eo "[0-9]{1,3}")
 # gron {"GOOD": "PEOPEL"}
 # echo "{\"issue\": $ISSUE,\"head\":\"issue-$ISSUE\",\"base\":\"master\"}"
 
- if [[ -n $(git status --porcelain) ]]; then echo "repo is dirty"; fi
-if [[ $(git status --porcelain) ]]; then echo "repo is clean"; fi
+ if [[ $(git diff --no-ext-diff --quiet --exit-code) ]]; then echo "repo is dirty"; fi
+# if [[ $(git status --porcelain) ]]; then echo "repo is clean"; fi
 
 if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]
 then
