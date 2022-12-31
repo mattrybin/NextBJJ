@@ -53,6 +53,7 @@ then
 else
   echo "HELLO" && 
   if [[ -n $(git status --porcelain) ]]; then echo "repo is dirty"; fi &&
+  if [[ $(git status --porcelain) ]]; then echo "repo is clean"; fi &&
   exit 1
 fi
 
