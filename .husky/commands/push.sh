@@ -5,6 +5,8 @@ echo -e "===\n>> Pre-push Hook: Checking branch name..."
 BRANCH=`git rev-parse --abbrev-ref HEAD`
 PROTECTED_BRANCHES="^(master)"
 
+git status -sb | grep "ahead"
+
 ISSUE=$(printenv | 
 grep "CODESPACE_NAME" | 
 grep -Eo "CODESPACE_NAME=mattrybin-[0-9]{1,3}" | 
@@ -59,8 +61,12 @@ then
   exit 1
 else
   echo "HELLO"
-  if [[ -n $(git status --porcelain) ]]; then echo "repo is dirty"; fi
-  if [[ $(git status --porcelain) ]]; then echo "repo is clean"; fi
+  if [[ -n $(git status -sb | grep "ahead") ]]
+  then 
+    echo "is ahead"
+  else
+    echo "is the same as remote"
+  fi
   exit 1
 fi
 
