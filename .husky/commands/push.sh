@@ -5,6 +5,8 @@ echo -e "===\n>> Pre-push Hook: Checking branch name..."
 BRANCH=`git rev-parse --abbrev-ref HEAD`
 PROTECTED_BRANCHES="^(master)"
 
+exit 0
+
 # curl -s \
 #   -H "Accept: application/vnd.github+json" \
 #   -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN"\
