@@ -9,6 +9,6 @@ pnpm lint && pnpm test:e2e && pnpm test:manypkg
 DURATION_IN_SECONDS=$SECONDS
 echo " "
 echo " "
-echo "Commit took $DURATION_IN_SECONDS seconds to run"
+echo "✅ Pre-Commit script took $DURATION_IN_SECONDS seconds to run"
 echo " "
 echo " "
