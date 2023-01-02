@@ -15,10 +15,6 @@ PROTECTED_BRANCHES="^(master)"
 #   gron | grep mergeable_state | grep -cim1 "clean" | xargs -n1 -I % expr %
 
 pull_request_status_check () {
-  echo "before"
-  echo $1
-  echo $2
-  echo "after"
   curl -s \
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
@@ -41,7 +37,7 @@ attempt_counter=0
 max_attempts=200
 
 wait_for_clean_status () {
-  until pull_request_status_check; do
+  until pull_request_status_check $1; do
       if [ ${attempt_counter} -eq ${max_attempts} ];
       then
         echo "\nMax attempts reached"
