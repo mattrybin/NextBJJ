@@ -11,6 +11,8 @@ DURATION_IN_SECONDS=$SECONDS
 echo " "
 echo " "
 echo "✅ Pre-Commit script took $DURATION_IN_SECONDS seconds to run"
+echo " "
+echo " "
 
 # if [[ -n $(git status -sb | grep "ahead") ]]
 #   then 
