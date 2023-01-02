@@ -27,18 +27,20 @@ pull_request_status_check () {
 attempt_counter=0
 max_attempts=200
 
-until pull_request_status_check; do
-    if [ ${attempt_counter} -eq ${max_attempts} ];
-    then
-      echo "\nMax attempts reached"
-      exit 1
-    fi
+wait_for_clean_status () {
+  until pull_request_status_check; do
+      if [ ${attempt_counter} -eq ${max_attempts} ];
+      then
+        echo "\nMax attempts reached"
+        exit 1
+      fi
 
-    printf '.'
+      printf '.'
 
-    attempt_counter=$(($attempt_counter+1))
-    sleep 10
-done
+      attempt_counter=$(($attempt_counter+1))
+      sleep 10
+  done
+}
 
 echo "The branch is clean"
 
