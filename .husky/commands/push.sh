@@ -15,7 +15,10 @@ PROTECTED_BRANCHES="^(master)"
 #   gron | grep mergeable_state | grep -cim1 "clean" | xargs -n1 -I % expr %
 
 pull_request_status_check () {
+  echo "before"
   echo $1
+  echo $2
+  echo "after"
   curl -s \
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
@@ -123,7 +126,7 @@ else
     exit 0
   else
     echo "is the same as remote"
-    wait_for_clean_status $ISSUE
+    wait_for_clean_status $ISSUE "hello"
     pull_request_merge $ISSUE
     exit 0
   fi
