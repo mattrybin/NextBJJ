@@ -17,7 +17,7 @@ PROTECTED_BRANCHES="^(master)"
 pull_request_status_check () {
   curl -s \
     -H "Accept: application/vnd.github+json" \
-    -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN"\
+    -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
     https://api.github.com/repos/mattrybin/nextbjj/pulls/10 |
     gron | grep mergeable_state | grep -q "clean"
@@ -28,14 +28,16 @@ attempt_counter=0
 max_attempts=200
 
 until pull_request_status_check; do
-    if [ ${attempt_counter} -eq ${max_attempts} ];then
+    if [ ${attempt_counter} -eq ${max_attempts} ];
+    then
       echo "\nMax attempts reached"
       exit 1
     fi
 
     printf '.'
+
     attempt_counter=$(($attempt_counter+1))
-    sleep 5
+    sleep 10
 done
 
 echo "The branch is clean"
