@@ -15,6 +15,7 @@ PROTECTED_BRANCHES="^(master)"
 #   gron | grep mergeable_state | grep -cim1 "clean" | xargs -n1 -I % expr %
 
 pull_request_status_check () {
+  echo $1
   curl -s \
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
