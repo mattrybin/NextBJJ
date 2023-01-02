@@ -5,15 +5,6 @@ echo -e "===\n>> Pre-push Hook: Checking branch name..."
 BRANCH=`git rev-parse --abbrev-ref HEAD`
 PROTECTED_BRANCHES="^(master)"
 
-# exit 0
-
-# curl -s \
-#   -H "Accept: application/vnd.github+json" \
-#   -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN"\
-#   -H "X-GitHub-Api-Version: 2022-11-28" \
-#   https://api.github.com/repos/mattrybin/nextbjj/pulls/10 |
-#   gron | grep mergeable_state | grep -cim1 "clean" | xargs -n1 -I % expr %
-
 pull_request_status_check () {
   curl -s \
     -H "Accept: application/vnd.github+json" \
