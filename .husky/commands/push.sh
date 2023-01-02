@@ -24,10 +24,12 @@ pull_request_status_check () {
 }
 
 pull_request_merge () {
-  curl -s -X PUT \
+  curl -X PUT -s  \
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
+    -H "merge_method: squash" \
+    -H "Content-Type: application/json" \
     https://api.github.com/repos/mattrybin/nextbjj/pulls/$1/merge |
     gron | grep merged | grep -q "true"
 }
