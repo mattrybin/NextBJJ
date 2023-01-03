@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "start:web": "(cd ../../apps/web && pnpm start)",
+    "start:api": "(cd ../../apps/api && pnpm start)",
     "dev:test": "pnpm test:e2e",
-    "e2e:test": "start-server-and-test 'pnpm start:web' http-get://127.0.0.1:3100 'pnpm test:e2e'",
+    "e2e:test": "start-server-and-test 'pnpm start:web & pnpm start:api' '3100|2022' 'pnpm test:e2e'",
     "test:e2e": "cucumber-js --publish-quiet --require cucumber.conf.js --require steps/**/*.js"
   },
   "dependencies": {

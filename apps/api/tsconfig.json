@@ -1,0 +1,22 @@
+{
+    "extends": "tsconfig/base.json",
+    "include": [
+        "next-env.d.ts",
+        "**/*.ts",
+        "**/*.tsx"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist",
+        "build"
+    ],
+    "compilerOptions": {
+        "outDir": "dist",
+        "resolveJsonModule": true,
+        "lib": [
+            "ES2015"
+        ],
+        "module": "ES2020",
+        "target": "es6"
+    },
+}

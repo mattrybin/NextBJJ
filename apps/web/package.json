@@ -3,12 +3,16 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "setup": "next dev --port 3100",
     "dev": "next dev --port 3100",
     "build": "next build",
     "start": "next start --port 3100",
     "lint": "next lint && tsc --noemit"
   },
   "dependencies": {
+    "@tanstack/react-query": "^4.20.4",
+    "@trpc/client": "^10.7.0",
+    "@trpc/react-query": "^10.7.0",
     "next": "13.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

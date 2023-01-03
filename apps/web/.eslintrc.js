@@ -25,5 +25,6 @@ module.exports = {
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-no-literals": "off",
     "react/jsx-newline": "off",
+    "react/function-component-definition": "off"
   },
 }
