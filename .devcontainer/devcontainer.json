@@ -4,22 +4,21 @@
 	"name": "Alpine",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
 	// "image": "mcr.microsoft.com/devcontainers/base:alpine-3.17"
-  "build": {
-    // Path is relataive to the devcontainer.json file.
-    "dockerfile": "Dockerfile"
-},
+	"build": {
+		// Path is relataive to the devcontainer.json file.
+		"dockerfile": "Dockerfile"
+	},
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
-
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [3000, 6006],
-
+	"forwardPorts": [
+		3000,
+		6006
+	],
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "pnpm install"
-
+	"onCreateCommand": "pnpm install && pnpm build"
 	// Configure tool-specific properties.
 	// "customizations": {},
-
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
 }
