@@ -8,11 +8,12 @@
   ],
   "scripts": {
     "test:manypkg": "manypkg check",
-    "test:e2e": "turbo run e2e:test",
+    "test:e2e": "turbo run e2e:test dev:core",
     "e2e": "turbo run e2e:test",
     "ci": "turbo run build e2e:test lint",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
+    "dev:core": "turbo run dev --parallel --filter=api --filter=web",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "prepare": "chmod +x ./node_modules/husky/lib/bin.js && husky install"
