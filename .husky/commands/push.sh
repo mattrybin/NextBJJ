@@ -94,7 +94,7 @@ then
   git commit -am "" --allow-empty-message
   git pull --rebase
   git checkout -t -b "issue-$ISSUE"
-  git push -u origin issue-$ISSUE
+  git push -u origin issue-$ISSUE --no-verify
   curl \
   -X POST \
   -H "Accept: application/vnd.github+json" \
