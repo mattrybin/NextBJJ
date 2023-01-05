@@ -1,7 +1,6 @@
 #!/usr/bin/bash
 
 echo -e "===\n>> Pre-push Hook: Checking branch name..."
-# hmm
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 PROTECTED_BRANCHES="^(master)"
