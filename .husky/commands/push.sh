@@ -122,6 +122,7 @@ else
     exit 0
   else
     echo "is the same as remote"
+    echo "aweeomse"
     echo "$ISSUE"
     wait_for_clean_status $ISSUE "hello"
     # pull_request_merge $ISSUE
