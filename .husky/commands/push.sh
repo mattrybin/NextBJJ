@@ -118,6 +118,7 @@ if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
 else
   if [[ -n $(git status -sb | grep "ahead") ]]; then
     echo "branch is ahead and we will do normal push"
+    git push --no-verify
     exit 1
   else
     echo "is the same as remote"
