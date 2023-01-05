@@ -20,16 +20,16 @@ pull_request_status_check() {
     gron | grep mergeable_state | grep -q "clean"
 }
 
-pull_request_merge() {
-  curl -X PUT -s \
-    -H "Accept: application/vnd.github+json" \
-    -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
-    -H "X-GitHub-Api-Version: 2022-11-28" \
-    -H "Content-Type: application/json" \
-    --data-raw '{"merge_method": "squash"}' \
-    https://api.github.com/repos/mattrybin/nextbjj/pulls/$1/merge |
-    gron | grep merged | grep -q "true"
-}
+# pull_request_merge() {
+#   curl -X PUT -s \
+#     -H "Accept: application/vnd.github+json" \
+#     -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
+#     -H "X-GitHub-Api-Version: 2022-11-28" \
+#     -H "Content-Type: application/json" \
+#     --data-raw '{"merge_method": "squash"}' \
+#     https://api.github.com/repos/mattrybin/nextbjj/pulls/$1/merge |
+#     gron | grep merged | grep -q "true"
+# }
 
 # pull_request_status_check
 attempt_counter=0
@@ -114,18 +114,18 @@ if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
   echo -e "\n⏰ Wait on CI to complete"
   wait_for_clean_status $ISSUE
   echo -e "\n✅ CI finished, 'git push' again to close the PR and shutdown codespace"
-  exit 0
+  exit 1
 else
   if [[ -n $(git status -sb | grep "ahead") ]]; then
     echo "branch is ahead and we will do normal push"
-    exit 0
+    exit 1
   else
     echo "is the same as remote"
     echo "aweeomse"
     echo "$ISSUE"
     wait_for_clean_status $ISSUE "hello"
     # pull_request_merge $ISSUE
-    exit 0
+    exit 1
   fi
 fi
 
