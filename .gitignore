@@ -36,3 +36,4 @@ yarn-error.log*
 
 # custom
 .husky/random.sh
+*.tsbuildinfo
