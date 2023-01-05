@@ -6,6 +6,12 @@ echo -e "===\n>> Pre-push Hook: Checking branch name..."
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 PROTECTED_BRANCHES="^(master)"
 
+# Check if pnpm install changes the lock file and exit if true
+pnpm install
+if [[ $(git diff --stat) != '' ]]; then
+  exit 1
+fi
+
 pull_request_status_check() {
   curl -s \
     -H "Accept: application/vnd.github+json" \
@@ -61,6 +67,10 @@ ISSUE_TITLE=$(curl -s -X GET "https://api.github.com/repos/mattrybin/nextbjj/iss
   -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" |
   gron | grep title | gron -u | jq -r ".title")
 
+echo "CHECK ISSUE AND TITLE"
+echo "$ISSUE"
+echo "$ISSUE_TITLE"
+
 # # curl -s \
 # #   -H "Accept: application/vnd.github+json" \
 # #   -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN"\
@@ -87,6 +97,8 @@ ISSUE_TITLE=$(curl -s -X GET "https://api.github.com/repos/mattrybin/nextbjj/iss
 
 if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
   echo -e "\n🚫 Cannot push to remote $BRANCH branch, creating new issue branch ($ISSUE) and PR."
+
+  # Squash the commits into one empty message commit
   git reset --soft $(git merge-base HEAD origin/master)
   git commit -am "" --allow-empty-message
   git pull --rebase
@@ -111,7 +123,8 @@ else
   else
     echo "is the same as remote"
     wait_for_clean_status $ISSUE "hello"
-    pull_request_merge $ISSUE
+    echo "$ISSUE"
+    # pull_request_merge $ISSUE
     exit 0
   fi
 fi
