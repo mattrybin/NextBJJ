@@ -123,6 +123,7 @@ else
   else
     echo "is the same as remote"
     wait_for_clean_status $ISSUE "hello"
+    echo "$ISSUE"
     # pull_request_merge $ISSUE
     exit 0
   fi
