@@ -60,7 +60,6 @@ ISSUE_TITLE=$(curl -s -X GET "https://api.github.com/repos/mattrybin/nextbjj/iss
   -H 'X-GitHub-Api-Version: 2022-11-28' \
   -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" |
   gron | grep title | gron -u | jq -r ".title")
-echo $ISSUE_TITLE
 
 # # curl -s \
 # #   -H "Accept: application/vnd.github+json" \
@@ -106,7 +105,6 @@ if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
   echo -e "\n✅ CI finished, 'git push' again to close the PR and shutdown codespace"
   exit 0
 else
-  echo "HELLO"
   if [[ -n $(git status -sb | grep "ahead") ]]; then
     echo "branch is ahead and we will do normal push"
     exit 0
