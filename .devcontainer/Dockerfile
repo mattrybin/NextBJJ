@@ -1,5 +1,4 @@
-# FROM mcr.microsoft.com/vscode/devcontainers/javascript-node
-FROM node:16.19-slim
+FROM node:18-slim
 FROM mcr.microsoft.com/playwright:focal
 ENV PATH /app/node_modules/.bin:$PATH
 
