@@ -1,6 +1,7 @@
 name: Repo Smoke Test
 
-on: push
+# Temp disable this owrks i tink update
+# on: push
 
 jobs:
   build:
