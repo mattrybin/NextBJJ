@@ -5,4 +5,4 @@ Feature: todo
 
   Scenario: Add item to the todo list
     Given I am on the "home" page
-    Then I should see "header"
+    Then I should see "header" containing "hello"
