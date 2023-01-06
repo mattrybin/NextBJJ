@@ -11,6 +11,15 @@ if [[ $(git diff --stat) != '' ]]; then
   exit 1
 fi
 
+codespace_close () {
+  curl \
+  -X DELETE \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  "https://api.github.com/user/codespaces/#$1"
+}
+
 pull_request_status_check() {
   curl -s \
     -H "Accept: application/vnd.github+json" \
@@ -112,8 +121,9 @@ if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
     -d "{\"issue\":$ISSUE,\"head\":\"issue-$ISSUE\",\"base\":\"master\"}"
 
   echo -e "\n⏰ Wait on CI to complete"
-  wait_for_clean_status $ISSUE
+    wait_for_clean_status $ISSUE
     pull_request_merge $ISSUE
+    codespace_close $ISSUE
   echo -e "\n✅ CI finished, 'git push' again to close the PR and shutdown codespace"
   exit 1
 else
@@ -125,6 +135,7 @@ else
     echo "is the same as remote"
     wait_for_clean_status $ISSUE
     pull_request_merge $ISSUE
+    codespace_close $ISSUE
     exit 1
   fi
 fi
