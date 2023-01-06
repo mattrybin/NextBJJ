@@ -17,7 +17,7 @@ codespace_close () {
   -H "Accept: application/vnd.github+json" \
   -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
   -H "X-GitHub-Api-Version: 2022-11-28" \
-  "https://api.github.com/user/codespaces/#$1"
+  "https://api.github.com/user/codespaces/issue-$1"
 }
 
 pull_request_status_check() {
