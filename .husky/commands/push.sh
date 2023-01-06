@@ -17,7 +17,7 @@ codespace_close () {
   -H "Accept: application/vnd.github+json" \
   -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
   -H "X-GitHub-Api-Version: 2022-11-28" \
-  "https://api.github.com/user/codespaces/issue-$1"
+  "https://api.github.com/user/codespaces/$CODESPACE_NAME"
 }
 
 pull_request_status_check() {
@@ -123,7 +123,7 @@ if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
   echo -e "\n⏰ Wait on CI to complete"
     wait_for_clean_status $ISSUE
     pull_request_merge $ISSUE
-    codespace_close $ISSUE
+    codespace_close
   echo -e "\n✅ CI finished, 'git push' again to close the PR and shutdown codespace"
   exit 1
 else
@@ -135,7 +135,7 @@ else
     echo "is the same as remote"
     wait_for_clean_status $ISSUE
     pull_request_merge $ISSUE
-    codespace_close $ISSUE
+    codespace_close
     exit 1
   fi
 fi
