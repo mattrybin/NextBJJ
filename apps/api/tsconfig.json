@@ -3,7 +3,6 @@
     "include": [
         "next-env.d.ts",
         "**/*.ts",
-        "**/*.tsx"
     ],
     "exclude": [
         "node_modules",
@@ -12,11 +11,13 @@
     ],
     "compilerOptions": {
         "outDir": "dist",
+        "esModuleInterop": true,
         "resolveJsonModule": true,
+        "moduleResolution": "node",
         "lib": [
             "ES2015"
         ],
-        "module": "ES2020",
-        "target": "es6"
+        "module": "commonjs",
+        "target": "es2015"
     },
 }

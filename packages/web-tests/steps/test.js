@@ -23,3 +23,9 @@ Then('I should be on the {string} page', { timeout: 5000 }, async (string) =>
 Then('I should see {string}', { timeout: 10000 }, async (string) =>
     Boolean(await page.waitForSelector(`[data-test="${string}"]`))
 );
+
+Then('I should see {string} containing {string}', async (string, expected) => {
+    await page.waitForSelector(`[data-test="${string}"]`)
+    const actual = await page.innerText(`[data-test="${string}"]`);
+    expect(actual).toBe(expected);
+  });
