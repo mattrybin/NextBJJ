@@ -113,6 +113,7 @@ if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
 
   echo -e "\n⏰ Wait on CI to complete"
   wait_for_clean_status $ISSUE
+    pull_request_merge $ISSUE
   echo -e "\n✅ CI finished, 'git push' again to close the PR and shutdown codespace"
   exit 1
 else
@@ -122,9 +123,7 @@ else
     exit 1
   else
     echo "is the same as remote"
-    echo "aweeomse"
-    echo "$ISSUE"
-    wait_for_clean_status $ISSUE "hello"
+    wait_for_clean_status $ISSUE
     pull_request_merge $ISSUE
     exit 1
   fi
