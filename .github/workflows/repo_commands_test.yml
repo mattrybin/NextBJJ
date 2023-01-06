@@ -1,6 +1,6 @@
 name: Repo Smoke Test
 
-# Temp disable this owrks i tink
+# Temp disable this owrks i tink update
 # on: push
 
 jobs:
