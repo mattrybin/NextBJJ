@@ -7,6 +7,7 @@
     "packages/*"
   ],
   "scripts": {
+    "test:yarnhook": "yarnhook",
     "test:manypkg": "manypkg check",
     "test:e2e": "turbo run e2e:test dev:core",
     "e2e": "turbo run build && turbo run e2e:test",
@@ -36,6 +37,7 @@
     "husky": "^8.0.2",
     "lint-staged": "^13.1.0",
     "prettier": "latest",
-    "turbo": "^1.6.3"
+    "turbo": "^1.6.3",
+    "yarnhook": "^0.6.0"
   }
 }
