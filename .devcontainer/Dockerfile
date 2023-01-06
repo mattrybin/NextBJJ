@@ -11,3 +11,5 @@ RUN chsh -s $(which zsh);
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)";
 RUN cd && curl https://raw.githubusercontent.com/mattrybin/dotfiles/master/.alias > .alias;
 RUN cd && curl https://raw.githubusercontent.com/mattrybin/dotfiles/master/.zshrc > .zshrc;
+RUN cd && echo "alias save=\"git add . && git commit -m 'save'\"" >> .alias;
+RUN cd && echo "alias push=\"git add . && git commit -m 'save' && git push\"" >> .alias;
