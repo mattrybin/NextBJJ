@@ -9,7 +9,7 @@
   "scripts": {
     "test:yarnhook": "yarnhook",
     "test:manypkg": "manypkg check",
-    "test:e2e": "turbo run e2e:test dev:core",
+    "test:e2e": "turbo run build && turbo run e2e:test",
     "e2e": "turbo run build && turbo run e2e:test",
     "ci": "turbo run build e2e:test lint",
     "build": "turbo run build",
