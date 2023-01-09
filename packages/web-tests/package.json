@@ -1,5 +1,5 @@
 {
-  "name": "web-tests",
+  "name": "@nextbjj/web-tests",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -13,13 +13,13 @@
   "dependencies": {
     "playwright": "1.29.2",
     "start-server-and-test": "^1.15.2",
-    "web": "0.0.0"
+    "web": "0.0.2"
   },
   "devDependencies": {
     "@cucumber/cucumber": "^8.10.0",
-    "@cucumber/messages": "*",
+    "@cucumber/messages": "^21.0.1",
     "@cucumber/pretty-formatter": "^1.0.0",
-    "@playwright/test": "1.29.2",
-    "tsconfig": "0.0.0"
+    "@nextbjj/tsconfig": "0.0.0",
+    "@playwright/test": "1.29.2"
   }
 }

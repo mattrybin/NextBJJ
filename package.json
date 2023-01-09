@@ -1,5 +1,5 @@
 {
-  "name": "nextbjj",
+  "name": "@nextbjj/repo",
   "version": "0.0.0",
   "private": true,
   "workspaces": [
@@ -11,7 +11,7 @@
     "test:manypkg": "manypkg check",
     "test:e2e": "turbo run build && turbo run e2e:test",
     "e2e": "turbo run build && turbo run e2e:test",
-    "ci": "turbo run build e2e:test lint",
+    "ci": "turbo run build && turbo run e2e:test lint",
     "build": "turbo run build",
     "dev": "turbo run dev --parallel",
     "dev:core": "turbo run dev --parallel --filter=api --filter=web",
@@ -33,10 +33,10 @@
   },
   "dependencies": {
     "@manypkg/cli": "^0.19.2",
-    "eslint-config-custom": "*",
-    "husky": "^8.0.2",
+    "@nextbjj/eslint-config-custom": "0.0.0",
+    "husky": "^8.0.3",
     "lint-staged": "^13.1.0",
-    "prettier": "latest",
+    "prettier": "^2.8.2",
     "turbo": "^1.6.3",
     "yarnhook": "^0.6.0"
   }
