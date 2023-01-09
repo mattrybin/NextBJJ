@@ -17,7 +17,8 @@
     "dev:core": "turbo run dev --parallel --filter=api --filter=web",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "prepare": "chmod +x ./node_modules/husky/lib/bin.js && husky install"
+    "prepare": "chmod +x ./node_modules/husky/lib/bin.js && husky install",
+    "preinstall": "npx only-allow pnpm"
   },
   "engines": {
     "node": ">=14.0.0"
