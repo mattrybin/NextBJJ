@@ -14,7 +14,7 @@ REPO=nextbjj
 # }
 
 get_lines_diff () {
-    git --no-pager diff --shortstat master > sed 's/.*,//'
+    git --no-pager diff --shortstat master | sed 's/.*,//'
 }
 
 get_lines_diff
