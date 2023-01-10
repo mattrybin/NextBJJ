@@ -27,8 +27,8 @@ LINE_NUMBER=0
 
 get_lines_diff () {
     git --no-pager diff --shortstat master
-    plus=$(git --no-pager diff --shortstat master | awk -F',' '{print $2}' | grep -o '[0-9]\+')
-    minus=$(git --no-pager diff --shortstat master | awk -F',' '{print $3}' | grep -o '[0-9]\+')
+    plus=$(git --no-pager diff --shortstat origin/master | awk -F',' '{print $2}' | grep -o '[0-9]\+')
+    minus=$(git --no-pager diff --shortstat origin/master | awk -F',' '{print $3}' | grep -o '[0-9]\+')
     result=$(($plus-$minus))
     if [ $result -lt 0 ] 
     then
