@@ -11,6 +11,34 @@ if [[ $(git diff --stat) != '' ]]; then
   exit 1
 fi
 
+OWNER=mattrybin
+REPO=nextbjj
+LINE_NUMBER=0
+
+get_lines_diff () {
+    git --no-pager diff --shortstat master
+    plus=$(git --no-pager diff --shortstat master | awk -F',' '{print $2}' | grep -o '[0-9]\+')
+    minus=$(git --no-pager diff --shortstat master | awk -F',' '{print $3}' | grep -o '[0-9]\+')
+    result=$(($plus-$minus))
+    if [ $result -lt 0 ] 
+    then
+        LINE_NUMBER="[$result]"
+    else 
+        LINE_NUMBER="[+$result]"
+    fi 
+    }
+
+
+pull_request_add_line_numbers () {
+curl \
+  -X PATCH \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN"\
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  https://api.github.com/repos/$OWNER/$REPO/pulls/$1 \
+  -d '{"title":"new title"}'
+}
+
 codespace_close () {
   curl \
   -X DELETE \
@@ -40,6 +68,16 @@ pull_request_merge() {
     gron | grep merged | grep -q "true"
 }
 
+pull_request_add_line_numbers () {
+curl \
+  -X PATCH \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN"\
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  https://api.github.com/repos/$OWNER/$REPO/pulls/$1 \
+  -d "{\"title\":\"$2 $3\"}"
+}
+
 # pull_request_status_check
 attempt_counter=0
 max_attempts=200
@@ -58,12 +96,6 @@ wait_for_clean_status() {
   done
 }
 
-# wait_for_clean_status
-
-# echo "The branch is clean"
-
-# git status -sb | grep "ahead"
-
 ISSUE=$(printenv |
   grep "CODESPACE_NAME" |
   grep -Eo "CODESPACE_NAME=mattrybin-[0-9]{1,3}" |
@@ -78,30 +110,6 @@ ISSUE_TITLE=$(curl -s -X GET "https://api.github.com/repos/mattrybin/nextbjj/iss
 echo "CHECK ISSUE AND TITLE"
 echo "$ISSUE"
 echo "$ISSUE_TITLE"
-
-# # curl -s \
-# #   -H "Accept: application/vnd.github+json" \
-# #   -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN"\
-# #   -H "X-GitHub-Api-Version: 2022-11-28" \
-# #   https://api.github.com/repos/mattrybin/nextbjj/pulls/8 |
-# #   gron | grep mergeable_state
-
-# # curl \
-# #   -H "Accept: application/vnd.github+json" \
-# #   -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN"\
-# #   -H "X-GitHub-Api-Version: 2022-11-28" \
-# #   https://api.github.com/repos/mattrybin/nextBJJ/commits/issue-8/status
-
-# # gron {"GOOD": "PEOPEL"}
-# # echo "{\"issue\": $ISSUE,\"head\":\"issue-$ISSUE\",\"base\":\"master\"}"
-
-# if [[ $(git diff --no-ext-diff --quiet --exit-code) ]]
-#  then
-#   echo "repo is dirty"
-#  else
-#   echo "HELLO"
-# fi
-# # if [[ $(git status --porcelain) ]]; then echo "repo is clean"; fi
 
 if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
   echo -e "\n🚫 Cannot push to remote $BRANCH branch, creating new issue branch ($ISSUE) and PR."
@@ -123,6 +131,8 @@ if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
   echo -e "\n⏰ Wait on CI to complete"
     wait_for_clean_status $ISSUE
     pull_request_merge $ISSUE
+    get_lines_diff
+    pull_request_add_line_numbers $ISSUE "$ISSUE_TITLE $LINE_NUMBER"
     codespace_close
   echo -e "\n✅ CI finished, 'git push' again to close the PR and shutdown codespace"
   exit 1
@@ -135,9 +145,9 @@ else
     echo "is the same as remote"
     wait_for_clean_status $ISSUE
     pull_request_merge $ISSUE
+    get_lines_diff
+    pull_request_add_line_numbers $ISSUE "$ISSUE_TITLE $LINE_NUMBER"
     codespace_close
     exit 1
   fi
 fi
-
-# # if [[ -n $(git status --porcelain) ]]; then echo "repo is dirty"; fi
