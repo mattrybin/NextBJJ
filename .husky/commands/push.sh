@@ -13,6 +13,21 @@ fi
 
 OWNER=mattrybin
 REPO=nextbjj
+LINE_NUMBER=0
+
+get_lines_diff () {
+    git --no-pager diff --shortstat master
+    plus=$(git --no-pager diff --shortstat master | awk -F',' '{print $2}' | grep -o '[0-9]\+')
+    minus=$(git --no-pager diff --shortstat master | awk -F',' '{print $3}' | grep -o '[0-9]\+')
+    result=$(($plus-$minus))
+    if [ $result -lt 0 ] 
+    then
+        LINE_NUMBER="[$result]"
+    else 
+        LINE_NUMBER="[+$result]"
+    fi 
+    }
+
 
 pull_request_add_line_numbers () {
 curl \
@@ -51,6 +66,16 @@ pull_request_merge() {
     --data-raw '{"merge_method": "squash"}' \
     https://api.github.com/repos/mattrybin/nextbjj/pulls/$1/merge |
     gron | grep merged | grep -q "true"
+}
+
+pull_request_add_line_numbers () {
+curl \
+  -X PATCH \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN"\
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  https://api.github.com/repos/$OWNER/$REPO/pulls/$1 \
+  -d "{\"title\":\"$2 $3\"}"
 }
 
 # pull_request_status_check
@@ -106,6 +131,8 @@ if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
   echo -e "\n⏰ Wait on CI to complete"
     wait_for_clean_status $ISSUE
     pull_request_merge $ISSUE
+    get_lines_diff
+    pull_request_add_line_numbers $ISSUE "$ISSUE_TITLE $LINE_NUMBER"
     codespace_close
   echo -e "\n✅ CI finished, 'git push' again to close the PR and shutdown codespace"
   exit 1
@@ -118,6 +145,8 @@ else
     echo "is the same as remote"
     wait_for_clean_status $ISSUE
     pull_request_merge $ISSUE
+    get_lines_diff
+    pull_request_add_line_numbers $ISSUE "$ISSUE_TITLE $LINE_NUMBER"
     codespace_close
     exit 1
   fi
