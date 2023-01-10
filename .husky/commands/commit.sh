@@ -9,15 +9,6 @@ ISSUE=$(printenv |
   grep -Eo "CODESPACE_NAME=mattrybin-[0-9]{1,3}" |
   grep -Eo "[0-9]{1,3}")
 
-# pull_request_add_line_numbers () {
-# curl \
-#   -X PATCH \
-#   -H "Accept: application/vnd.github+json" \
-#   -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN"\
-#   -H "X-GitHub-Api-Version: 2022-11-28" \
-#   https://api.github.com/repos/$OWNER/$REPO/pulls/$1 \
-#   -d '{"title":"chore: add the amount of lines changed to commit [+231]"}'
-# }
 ISSUE_TITLE=$(curl -s -X GET "https://api.github.com/repos/mattrybin/nextbjj/issues/${ISSUE}" \
   -H 'Accept: application/vnd.github+json' \
   -H 'X-GitHub-Api-Version: 2022-11-28' \
@@ -37,6 +28,15 @@ get_lines_diff () {
     fi 
     }
 
+# pull_request_add_line_numbers () {
+# curl \
+#   -X PATCH \
+#   -H "Accept: application/vnd.github+json" \
+#   -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN"\
+#   -H "X-GitHub-Api-Version: 2022-11-28" \
+#   https://api.github.com/repos/$OWNER/$REPO/pulls/$1 \
+#   -d '{"title":"chore: add the amount of lines changed to commit [+231]"}'
+# }
 get_lines_diff
 echo "HELLo"
 echo $line_numbers
