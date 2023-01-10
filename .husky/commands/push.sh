@@ -71,12 +71,6 @@ wait_for_clean_status() {
   done
 }
 
-# wait_for_clean_status
-
-# echo "The branch is clean"
-
-# git status -sb | grep "ahead"
-
 ISSUE=$(printenv |
   grep "CODESPACE_NAME" |
   grep -Eo "CODESPACE_NAME=mattrybin-[0-9]{1,3}" |
@@ -91,30 +85,6 @@ ISSUE_TITLE=$(curl -s -X GET "https://api.github.com/repos/mattrybin/nextbjj/iss
 echo "CHECK ISSUE AND TITLE"
 echo "$ISSUE"
 echo "$ISSUE_TITLE"
-
-# # curl -s \
-# #   -H "Accept: application/vnd.github+json" \
-# #   -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN"\
-# #   -H "X-GitHub-Api-Version: 2022-11-28" \
-# #   https://api.github.com/repos/mattrybin/nextbjj/pulls/8 |
-# #   gron | grep mergeable_state
-
-# # curl \
-# #   -H "Accept: application/vnd.github+json" \
-# #   -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN"\
-# #   -H "X-GitHub-Api-Version: 2022-11-28" \
-# #   https://api.github.com/repos/mattrybin/nextBJJ/commits/issue-8/status
-
-# # gron {"GOOD": "PEOPEL"}
-# # echo "{\"issue\": $ISSUE,\"head\":\"issue-$ISSUE\",\"base\":\"master\"}"
-
-# if [[ $(git diff --no-ext-diff --quiet --exit-code) ]]
-#  then
-#   echo "repo is dirty"
-#  else
-#   echo "HELLO"
-# fi
-# # if [[ $(git status --porcelain) ]]; then echo "repo is clean"; fi
 
 if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
   echo -e "\n🚫 Cannot push to remote $BRANCH branch, creating new issue branch ($ISSUE) and PR."
@@ -152,5 +122,3 @@ else
     exit 1
   fi
 fi
-
-# # if [[ -n $(git status --porcelain) ]]; then echo "repo is dirty"; fi

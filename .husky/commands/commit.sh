@@ -2,6 +2,12 @@
 
 OWNER=mattrybin
 REPO=nextbjj
+line_numbers=0
+
+ISSUE=$(printenv |
+  grep "CODESPACE_NAME" |
+  grep -Eo "CODESPACE_NAME=mattrybin-[0-9]{1,3}" |
+  grep -Eo "[0-9]{1,3}")
 
 # pull_request_add_line_numbers () {
 # curl \
@@ -12,25 +18,31 @@ REPO=nextbjj
 #   https://api.github.com/repos/$OWNER/$REPO/pulls/$1 \
 #   -d '{"title":"chore: add the amount of lines changed to commit [+231]"}'
 # }
+ISSUE_TITLE=$(curl -s -X GET "https://api.github.com/repos/mattrybin/nextbjj/issues/${ISSUE}" \
+  -H 'Accept: application/vnd.github+json' \
+  -H 'X-GitHub-Api-Version: 2022-11-28' \
+  -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" |
+  gron | grep title | gron -u | jq -r ".title")
 
 get_lines_diff () {
-    git --no-pager diff --shortstat master | sed 's/.*,//' | echo
-}
+    git --no-pager diff --shortstat master
+    plus=$(git --no-pager diff --shortstat master | awk -F',' '{print $2}' | grep -o '[0-9]\+')
+    minus=$(git --no-pager diff --shortstat master | awk -F',' '{print $3}' | grep -o '[0-9]\+')
+    result=$(($plus-$minus))
+    if [ $result -lt 0 ] 
+    then
+        line_numbers="[$result]"
+    else 
+        line_numbers="[+$result]"
+    fi 
+    }
 
 get_lines_diff
+echo "HELLo"
+echo $line_numbers
+echo $ISSUE_TITLE
 
 # pull_request_add_line_numbers 51
-
-# pull_request_status_check() {
-#   curl -s \
-#     -H "Accept: application/vnd.github+json" \
-#     -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
-#     -H "X-GitHub-Api-Version: 2022-11-28" \
-#     https://api.github.com/repos/mattrybin/nextbjj/pulls/$1 |
-#     gron | grep mergeable_state | grep -q "clean"
-# }
-
-# pull_request_status_check
 
 # echo " "
 # echo " "
