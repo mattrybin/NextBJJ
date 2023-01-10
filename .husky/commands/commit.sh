@@ -1,5 +1,17 @@
 #!/usr/bin/bash
 
+# pull_request_add_line_numbers () {
+# curl \
+#   -X PATCH \
+#   -H "Accept: application/vnd.github+json" \
+#   -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN"\
+#   -H "X-GitHub-Api-Version: 2022-11-28" \
+#   https://api.github.com/repos/$OWNER/$REPO/pulls/$1 \
+#   -d '{"title":"new title"}'
+# }
+
+# pull_request_add_line_numbers 51
+
 echo " "
 echo " "
 echo "Starting Pre-Commit script"
