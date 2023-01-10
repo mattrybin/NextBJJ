@@ -1,15 +1,25 @@
 #!/usr/bin/bash
-
+SECONDS=0
 echo -e "===\n>> Pre-push Hook: Checking branch name..."
 
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
 PROTECTED_BRANCHES="^(master)"
 
 # Check if pnpm install changes the lock file and exit if true
-pnpm install
+echo " "
+echo " "
+echo "🟡 Running 'pnpm install' to validate lockfile"
+pnpm install --silent
+
 if [[ $(git diff --stat) != '' ]]; then
+  echo "🔴 Lockfile is invalid"
+  echo " "
+  echo " "
   exit 1
 fi
+
+echo "🟢 Lockfile validated"
+echo " "
 
 OWNER=mattrybin
 REPO=nextbjj
@@ -130,9 +140,17 @@ if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
 
   echo -e "\n⏰ Wait on CI to complete"
     wait_for_clean_status $ISSUE
-    pull_request_merge $ISSUE
     get_lines_diff
     pull_request_add_line_numbers $ISSUE "$ISSUE_TITLE $LINE_NUMBER"
+    pull_request_merge $ISSUE
+
+    DURATION_IN_SECONDS=$SECONDS
+    echo " "
+    echo " "
+    echo "✅ Push script took $DURATION_IN_SECONDS seconds to run"
+    echo " "
+    echo " "
+
     codespace_close
   echo -e "\n✅ CI finished, 'git push' again to close the PR and shutdown codespace"
   exit 1
@@ -144,9 +162,17 @@ else
   else
     echo "is the same as remote"
     wait_for_clean_status $ISSUE
-    pull_request_merge $ISSUE
     get_lines_diff
     pull_request_add_line_numbers $ISSUE "$ISSUE_TITLE $LINE_NUMBER"
+    pull_request_merge $ISSUE
+
+    DURATION_IN_SECONDS=$SECONDS
+    echo " "
+    echo " "
+    echo "✅ Push script took $DURATION_IN_SECONDS seconds to run"
+    echo " "
+    echo " "
+
     codespace_close
     exit 1
   fi
