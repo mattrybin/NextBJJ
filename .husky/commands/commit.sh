@@ -3,17 +3,23 @@
 OWNER=mattrybin
 REPO=nextbjj
 
-pull_request_add_line_numbers () {
-curl \
-  -X PATCH \
-  -H "Accept: application/vnd.github+json" \
-  -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN"\
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  https://api.github.com/repos/$OWNER/$REPO/pulls/$1 \
-  -d '{"title":"chore: add the amount of lines changed to commit [+231]"}'
+# pull_request_add_line_numbers () {
+# curl \
+#   -X PATCH \
+#   -H "Accept: application/vnd.github+json" \
+#   -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN"\
+#   -H "X-GitHub-Api-Version: 2022-11-28" \
+#   https://api.github.com/repos/$OWNER/$REPO/pulls/$1 \
+#   -d '{"title":"chore: add the amount of lines changed to commit [+231]"}'
+# }
+
+get_lines_diff () {
+    git --no-pager diff --shortstat master > sed 's/.*,//'
 }
 
-pull_request_add_line_numbers 51
+get_lines_diff
+
+# pull_request_add_line_numbers 51
 
 # pull_request_status_check() {
 #   curl -s \
