@@ -8,7 +8,6 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const hello = trpc.greet.useQuery("Matt Rybin");
-  console.log(hello.data)
   return (
     <>
       <Head>
@@ -19,7 +18,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div data-test="home">
-          <h1>Welcome</h1>
+          <h1>Random change</h1>
           <div data-test="header">{hello.data?.greeting}</div>
         </div>
       </main>
