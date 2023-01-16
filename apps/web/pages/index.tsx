@@ -18,7 +18,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <div data-test="home">
-          <h1>Random change</h1>
+          <h1>Random change again!</h1>
           <div data-test="header">{hello.data?.greeting}</div>
         </div>
       </main>
