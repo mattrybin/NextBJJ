@@ -20,47 +20,6 @@ importers:
       turbo: 1.6.3
       yarnhook: 0.6.0
 
-  apps/storybook:
-    specifiers:
-      '@babel/core': ^7.20.12
-      '@nextbjj/ui': 1.0.0
-      '@storybook/addon-actions': ^6.5.15
-      '@storybook/addon-essentials': ^6.5.15
-      '@storybook/addon-interactions': ^6.5.15
-      '@storybook/addon-links': ^6.5.15
-      '@storybook/builder-vite': ^0.2.7
-      '@storybook/cli': ^6.5.15
-      '@storybook/react': ^6.5.15
-      '@storybook/testing-library': ^0.0.13
-      '@types/react': ^18.0.26
-      '@types/react-dom': ^18.0.10
-      '@vitejs/plugin-react-swc': ^3.0.1
-      babel-loader: ^9.1.2
-      react: ^18.2.0
-      react-dom: ^18.2.0
-      typescript: ^4.9.4
-      vite: ^4.0.4
-    dependencies:
-      '@nextbjj/ui': link:../../packages/shared-ui
-      react: 18.2.0
-      react-dom: 18.2.0_react@18.2.0
-    devDependencies:
-      '@babel/core': 7.20.12
-      '@storybook/addon-actions': 6.5.15_biqbaboplfbrettd7655fr4n2y
-      '@storybook/addon-essentials': 6.5.15_6k6ryhlu53oiodl5hs7yypaxt4
-      '@storybook/addon-interactions': 6.5.15_e5jpadc73hndupgvstjs3ughyy
-      '@storybook/addon-links': 6.5.15_biqbaboplfbrettd7655fr4n2y
-      '@storybook/builder-vite': 0.2.7_qhrclqg3nl4pm5tblbmdwg5xxi
-      '@storybook/cli': 6.5.15_vg4efokf6a2uiu6qnfcmdhwoua
-      '@storybook/react': 6.5.15_pqeuueax4m4ltbdqrike7mxryq
-      '@storybook/testing-library': 0.0.13_biqbaboplfbrettd7655fr4n2y
-      '@types/react': 18.0.26
-      '@types/react-dom': 18.0.10
-      '@vitejs/plugin-react-swc': 3.0.1_vite@4.0.4
-      babel-loader: 9.1.2_la66t7xldg4uecmyawueag5wkm
-      typescript: 4.9.4
-      vite: 4.0.4
-
   apps/web:
     specifiers:
       '@next/font': 13.1.1
@@ -188,6 +147,47 @@ importers:
     devDependencies:
       nodemon: 2.0.20
       ts-node: 10.9.1_awa2wsr5thmg3i7jqycphctjfq
+
+  services/storybook:
+    specifiers:
+      '@babel/core': ^7.20.12
+      '@nextbjj/ui': 1.0.0
+      '@storybook/addon-actions': ^6.5.15
+      '@storybook/addon-essentials': ^6.5.15
+      '@storybook/addon-interactions': ^6.5.15
+      '@storybook/addon-links': ^6.5.15
+      '@storybook/builder-vite': ^0.2.7
+      '@storybook/cli': ^6.5.15
+      '@storybook/react': ^6.5.15
+      '@storybook/testing-library': ^0.0.13
+      '@types/react': ^18.0.26
+      '@types/react-dom': ^18.0.10
+      '@vitejs/plugin-react-swc': ^3.0.1
+      babel-loader: ^9.1.2
+      react: ^18.2.0
+      react-dom: ^18.2.0
+      typescript: ^4.9.4
+      vite: ^4.0.4
+    dependencies:
+      '@nextbjj/ui': link:../../packages/shared-ui
+      react: 18.2.0
+      react-dom: 18.2.0_react@18.2.0
+    devDependencies:
+      '@babel/core': 7.20.12
+      '@storybook/addon-actions': 6.5.15_biqbaboplfbrettd7655fr4n2y
+      '@storybook/addon-essentials': 6.5.15_6k6ryhlu53oiodl5hs7yypaxt4
+      '@storybook/addon-interactions': 6.5.15_e5jpadc73hndupgvstjs3ughyy
+      '@storybook/addon-links': 6.5.15_biqbaboplfbrettd7655fr4n2y
+      '@storybook/builder-vite': 0.2.7_qhrclqg3nl4pm5tblbmdwg5xxi
+      '@storybook/cli': 6.5.15_vg4efokf6a2uiu6qnfcmdhwoua
+      '@storybook/react': 6.5.15_pqeuueax4m4ltbdqrike7mxryq
+      '@storybook/testing-library': 0.0.13_biqbaboplfbrettd7655fr4n2y
+      '@types/react': 18.0.26
+      '@types/react-dom': 18.0.10
+      '@vitejs/plugin-react-swc': 3.0.1_vite@4.0.4
+      babel-loader: 9.1.2_la66t7xldg4uecmyawueag5wkm
+      typescript: 4.9.4
+      vite: 4.0.4
 
 packages:
 
@@ -701,7 +701,7 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.12.9
-      '@babel/helper-plugin-utils': 7.10.4
+      '@babel/helper-plugin-utils': 7.20.2
       '@babel/plugin-syntax-object-rest-spread': 7.8.3_@babel+core@7.12.9
       '@babel/plugin-transform-parameters': 7.20.7_@babel+core@7.12.9
     dev: true
