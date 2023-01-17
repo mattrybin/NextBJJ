@@ -5,7 +5,7 @@
   "scripts": {
     "test": "pnpm test:e2e",
     "start:web": "(cd ../../apps/web && pnpm start)",
-    "start:api": "(cd ../../apps/api && pnpm start)",
+    "start:api": "(cd ../../services/api && pnpm start)",
     "dev:test": "pnpm test:e2e",
     "e2e:test": "start-server-and-test 'pnpm start:web & pnpm start:api' '3100|2022' 'pnpm test:e2e'",
     "test:e2e": "cucumber-js --publish-quiet --require cucumber.conf.js --require steps/**/*.js"
