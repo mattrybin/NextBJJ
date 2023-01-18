@@ -8,6 +8,7 @@
     "services/*"
   ],
   "scripts": {
+    "start:web": "turbo run start --scope=@nextbjj/web",
     "test:yarnhook": "yarnhook",
     "test:manypkg": "manypkg check",
     "test:e2e": "turbo run build && turbo run e2e:test",
