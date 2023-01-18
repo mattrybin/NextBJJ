@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "test": "pnpm test:e2e",
-    "start:web": "(cd ../../apps/web && pnpm start)",
-    "start:api": "(cd ../../services/api && pnpm start)",
+    "start:web": "cd ../../apps/web && pnpm start",
+    "start:api": "cd ../../services/api && pnpm start",
     "dev:test": "pnpm test:e2e",
-    "e2e:test": "start-server-and-test 'pnpm start:web & pnpm start:api' '3100|2022' 'pnpm test:e2e'",
+    "e2e:test": "conc -k --success first \"npx wait-on http://127.0.0.1:3100 && npx wait-on http://127.0.0.1:2022 && pnpm test:e2e\" \"pnpm start:web\" \"pnpm start:api\"",
     "test:e2e": "cucumber-js --publish-quiet --require cucumber.conf.js --require steps/**/*.js"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
     "@cucumber/messages": "^21.0.1",
     "@cucumber/pretty-formatter": "^1.0.0",
     "@nextbjj/tsconfig": "0.0.0",
-    "@playwright/test": "1.29.2"
+    "@playwright/test": "1.29.2",
+    "concurrently": "^7.6.0"
   }
 }
