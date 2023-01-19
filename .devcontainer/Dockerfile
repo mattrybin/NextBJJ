@@ -14,7 +14,7 @@ RUN curl -sS https://webi.sh/shfmt | sh
 RUN cd && curl https://raw.githubusercontent.com/mattrybin/dotfiles/master/.alias > .alias;
 RUN cd && curl https://raw.githubusercontent.com/mattrybin/dotfiles/master/.zshrc > .zshrc;
 RUN cd && echo "alias save=\"git add . && git commit -m 'save'\"" >> .alias;
-RUN cd && echo "alias push=\"git add . && git commit -m 'save' && git push\"" >> .alias;
+RUN cd && echo "alias push=\"git add . && git commit -m 'save' --quiet && git push\"" >> .alias;
 RUN cd && echo "alias clean=\"git clean -Xdf\"" >> .alias;
 RUN cd && echo "alias install=\"pnpm install\"" >> .alias;
 

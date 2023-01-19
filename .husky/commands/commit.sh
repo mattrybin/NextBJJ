@@ -20,14 +20,10 @@ function run () {
 
 echo " "
 echo " "
-echo "🟡 Starting commit script"
-echo " "
+echo "🔵 Starting commit script"
 run "pnpm lint" 
 run "pnpm test:e2e" 
 run "pnpm test:manypkg" 
 DURATION_IN_SECONDS=$SECONDS
-echo " "
-echo " "
 echo "🟢 Commit script took $DURATION_IN_SECONDS seconds to run"
-echo " "
 echo " "
