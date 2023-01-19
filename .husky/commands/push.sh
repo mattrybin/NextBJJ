@@ -154,8 +154,9 @@ if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
   # exit 1
 else
   if [[ -n $(git status -sb | grep "ahead") ]]; then
-    echo "branch is ahead and we will do normal push"
-    git push --no-verify
+    echo "🔵 branch has commit that need to be pushed"
+    run_exit "git push --no-verify" 
+    echo "🔵 Run push command again to close this PR if successful"
     exit 1
   else
     echo "is the same as remote"
