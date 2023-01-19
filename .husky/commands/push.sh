@@ -117,7 +117,6 @@ wait_for_clean_status() {
 }
 
 
-# echo " "
 echo "🔵 Starting push script"
 run_exit "pnpm install --silent" 
 
@@ -136,36 +135,11 @@ if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
     https://api.github.com/repos/mattrybin/nextbjj/pulls \
     -d "{\"issue\":$ISSUE,\"head\":\"issue-$ISSUE\",\"base\":\"master\"}"
 
-  # echo -e "\n⏰ Wait on CI to complete"
-  #   wait_for_clean_status $ISSUE
-  #   get_lines_diff
-  #   pull_request_add_line_numbers $ISSUE "$ISSUE_TITLE $LINE_NUMBER"
-  #   pull_request_merge $ISSUE
-
-  #   DURATION_IN_SECONDS=$SECONDS
-  #   echo " "
-  #   echo " "
-  #   echo "✅ Push script took $DURATION_IN_SECONDS seconds to run"
-  #   echo " "
-  #   echo " "
-
-  #   codespace_close
-  # echo -e "\n✅ CI finished, 'git push' again to close the PR and shutdown codespace"
-  # exit 1
-else
-  if [[ -n $(git status -sb | grep "ahead") ]]; then
-    echo "🔵 branch has commit that need to be pushed"
-    run_exit "git push --no-verify" 
-    echo "🔵 Run push command again to close this PR if successful"
-    echo ""
-    echo ""
-    exit 1
-  else
-    echo "is the same as remote"
+  echo -e "\n⏰ Wait on CI to complete"
     wait_for_clean_status $ISSUE
-    # get_lines_diff
-    # pull_request_add_line_numbers $ISSUE "$ISSUE_TITLE $LINE_NUMBER"
-    # pull_request_merge $ISSUE
+    get_lines_diff
+    pull_request_add_line_numbers $ISSUE "$ISSUE_TITLE $LINE_NUMBER"
+    pull_request_merge $ISSUE
 
     DURATION_IN_SECONDS=$SECONDS
     echo " "
@@ -174,7 +148,30 @@ else
     echo " "
     echo " "
 
-    # codespace_close
+    codespace_close
+  echo -e "\n✅ CI finished, 'git push' again to close the PR and shutdown codespace"
+  exit 1
+else
+  if [[ -n $(git status -sb | grep "ahead") ]]; then
+    echo "🔵 branch has commit that need to be pushed"
+    run_exit "git push --no-verify" 
+    echo "🔵 Run push command again to close this PR"
+    echo ""
+    echo ""
+    exit 1
+  else
+    echo "is the same as remote"
+    wait_for_clean_status $ISSUE
+    get_lines_diff
+    pull_request_add_line_numbers $ISSUE "$ISSUE_TITLE $LINE_NUMBER"
+    pull_request_merge $ISSUE
+    DURATION_IN_SECONDS=$SECONDS
+    echo " "
+    echo " "
+    echo "✅ Push script took $DURATION_IN_SECONDS seconds to run"
+    echo " "
+    echo " "
+    codespace_close
     exit 1
   fi
 fi
