@@ -52,29 +52,6 @@ importers:
       typescript: 4.9.4
       zod: 3.20.2
 
-  packages/e2e-web:
-    specifiers:
-      '@cucumber/cucumber': ^8.10.0
-      '@cucumber/messages': ^21.0.1
-      '@cucumber/pretty-formatter': ^1.0.0
-      '@nextbjj/tsconfig': 0.0.0
-      '@playwright/test': 1.29.2
-      concurrently: ^7.6.0
-      playwright: 1.29.2
-      start-server-and-test: ^1.15.2
-      web: 0.0.2
-    dependencies:
-      playwright: 1.29.2
-      start-server-and-test: 1.15.2
-      web: 0.0.2
-    devDependencies:
-      '@cucumber/cucumber': 8.10.0
-      '@cucumber/messages': 21.0.1
-      '@cucumber/pretty-formatter': 1.0.0_6n2wdgitughq7go5sedtye2o2y
-      '@nextbjj/tsconfig': link:../tsconfig
-      '@playwright/test': 1.29.2
-      concurrently: 7.6.0
-
   packages/eslint:
     specifiers:
       '@typescript-eslint/eslint-plugin': ^5.48.0
@@ -149,6 +126,29 @@ importers:
     devDependencies:
       nodemon: 2.0.20
       ts-node: 10.9.1_awa2wsr5thmg3i7jqycphctjfq
+
+  services/e2e-web:
+    specifiers:
+      '@cucumber/cucumber': ^8.10.0
+      '@cucumber/messages': ^21.0.1
+      '@cucumber/pretty-formatter': ^1.0.0
+      '@nextbjj/tsconfig': 0.0.0
+      '@playwright/test': 1.29.2
+      concurrently: ^7.6.0
+      playwright: 1.29.2
+      start-server-and-test: ^1.15.2
+      web: 0.0.2
+    dependencies:
+      playwright: 1.29.2
+      start-server-and-test: 1.15.2
+      web: 0.0.2
+    devDependencies:
+      '@cucumber/cucumber': 8.10.0
+      '@cucumber/messages': 21.0.1
+      '@cucumber/pretty-formatter': 1.0.0_6n2wdgitughq7go5sedtye2o2y
+      '@nextbjj/tsconfig': link:../../packages/tsconfig
+      '@playwright/test': 1.29.2
+      concurrently: 7.6.0
 
   services/storybook:
     specifiers:
@@ -4392,7 +4392,7 @@ packages:
     resolution: {integrity: sha512-l6NQsDDyQUVeoTynNpC9uRvCUint/gSUXQA2euwmTuWGvPY5LSDUu6tkCtJB2SvGQlJQzLaKqcGZP4//7EDveA==}
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 16.18.11
+      '@types/node': 18.11.18
     dev: true
 
   /@types/graceful-fs/4.1.6:
@@ -4465,7 +4465,7 @@ packages:
   /@types/node-fetch/2.6.2:
     resolution: {integrity: sha512-DHqhlq5jeESLy19TYhLakJ07kNumXWjcDdxXsLUMJZ6ue8VZJj4kLPQVE/2mdHh3xZziNF1xppu5lwmS53HR+A==}
     dependencies:
-      '@types/node': 16.18.11
+      '@types/node': 18.11.18
       form-data: 3.0.1
     dev: true
 
@@ -4572,7 +4572,7 @@ packages:
   /@types/webpack-sources/3.2.0:
     resolution: {integrity: sha512-Ft7YH3lEVRQ6ls8k4Ff1oB4jN6oy/XmU6tQISKdhfh+1mR+viZFphS6WL0IrtDOzvefmJg5a0s7ZQoRXwqTEFg==}
     dependencies:
-      '@types/node': 16.18.11
+      '@types/node': 18.11.18
       '@types/source-list-map': 0.1.2
       source-map: 0.7.4
     dev: true
@@ -4580,7 +4580,7 @@ packages:
   /@types/webpack/4.41.33:
     resolution: {integrity: sha512-PPajH64Ft2vWevkerISMtnZ8rTs4YmRbs+23c402J0INmxDKCrhZNvwZYtzx96gY2wAtXdrK1BS2fiC8MlLr3g==}
     dependencies:
-      '@types/node': 16.18.11
+      '@types/node': 18.11.18
       '@types/tapable': 1.0.8
       '@types/uglify-js': 3.17.1
       '@types/webpack-sources': 3.2.0
@@ -9798,7 +9798,7 @@ packages:
     resolution: {integrity: sha512-7vuh85V5cdDofPyxn58nrPjBktZo0u9x1g8WtjQol+jZDaE+fhN+cIvTj11GndBnMnyfrUOG1sZQxCdjKh+DKg==}
     engines: {node: '>= 10.13.0'}
     dependencies:
-      '@types/node': 16.18.11
+      '@types/node': 18.11.18
       merge-stream: 2.0.0
       supports-color: 8.1.1
     dev: true
