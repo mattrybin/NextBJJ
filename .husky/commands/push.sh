@@ -157,6 +157,8 @@ else
     echo "🔵 branch has commit that need to be pushed"
     run_exit "git push --no-verify" 
     echo "🔵 Run push command again to close this PR if successful"
+    echo ""
+    echo ""
     exit 1
   else
     echo "is the same as remote"
