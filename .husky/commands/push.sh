@@ -1,29 +1,39 @@
 #!/usr/bin/bash
 SECONDS=0
-echo -e "===\n>> Pre-push Hook: Checking branch name..."
-
-BRANCH=$(git rev-parse --abbrev-ref HEAD)
-PROTECTED_BRANCHES="^(master)"
-
-# Check if pnpm install changes the lock file and exit if true
-echo " "
-echo " "
-echo "🟡 Running 'pnpm install' to validate lockfile"
-pnpm install --silent
-
-if [[ $(git diff --stat) != '' ]]; then
-  echo "🔴 Lockfile is invalid"
-  echo " "
-  echo " "
-  exit 1
-fi
-
-echo "🟢 Lockfile validated"
-echo " "
-
+AGO=0
 OWNER=mattrybin
 REPO=nextbjj
 LINE_NUMBER=0
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+PROTECTED_BRANCHES="^(master)"
+ISSUE=$(printenv |
+  grep "CODESPACE_NAME" |
+  grep -Eo "CODESPACE_NAME=mattrybin-[0-9]{1,3}" |
+  grep -Eo "[0-9]{1,3}")
+
+ISSUE_TITLE=$(curl -s -X GET "https://api.github.com/repos/mattrybin/nextbjj/issues/${ISSUE}" \
+  -H 'Accept: application/vnd.github+json' \
+  -H 'X-GitHub-Api-Version: 2022-11-28' \
+  -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" |
+  gron | grep title | gron -u | jq -r ".title")
+
+function run_exit () {
+    AGO=$SECONDS
+    printf "🟡 Running $1: "
+    # pnpm test:e2e &> /dev/null
+    $1 &> /dev/null
+    ret=$?
+    if [ $ret = 0 ]; then
+        printf "🟢 completed "  
+        printf "in $(($SECONDS-$AGO))sec \n"
+    else
+        printf "🔴 Command: $1 failed with exit code: $? "
+        printf "in $(($SECONDS-$AGO))sec \n"
+        exit 1
+    fi
+}
+
+
 
 get_lines_diff () {
     git --no-pager diff --shortstat master
@@ -106,31 +116,18 @@ wait_for_clean_status() {
   done
 }
 
-ISSUE=$(printenv |
-  grep "CODESPACE_NAME" |
-  grep -Eo "CODESPACE_NAME=mattrybin-[0-9]{1,3}" |
-  grep -Eo "[0-9]{1,3}")
 
-ISSUE_TITLE=$(curl -s -X GET "https://api.github.com/repos/mattrybin/nextbjj/issues/${ISSUE}" \
-  -H 'Accept: application/vnd.github+json' \
-  -H 'X-GitHub-Api-Version: 2022-11-28' \
-  -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" |
-  gron | grep title | gron -u | jq -r ".title")
-
-echo "CHECK ISSUE AND TITLE"
-echo "$ISSUE"
-echo "$ISSUE_TITLE"
+echo "🔵 Starting push script"
+run_exit "pnpm install --silent" 
 
 if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
-  echo -e "\n🚫 Cannot push to remote $BRANCH branch, creating new issue branch ($ISSUE) and PR."
-
-  # Squash the commits into one empty message commit
-  git reset --soft $(git merge-base HEAD origin/master)
-  git commit -am "" --allow-empty-message
-  git pull --rebase
-  git checkout -t -b "issue-$ISSUE"
-  git push -u origin issue-$ISSUE --no-verify
-  curl \
+  echo "🔵 Branch is master, will begin to create pull request"
+  run_exit "git reset --soft $(git merge-base HEAD origin/master)" 
+  run_exit "git commit -am \"\" --allow-empty-message --no-verify" 
+  run_exit "git pull --rebase" 
+  run_exit "git checkout -t -b issue-$ISSUE" 
+  run_exit "git push -u origin issue-$ISSUE --no-verify" 
+  curl -S -s -o /dev/null \
     -X POST \
     -H "Accept: application/vnd.github+json" \
     -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
@@ -156,8 +153,11 @@ if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
   exit 1
 else
   if [[ -n $(git status -sb | grep "ahead") ]]; then
-    echo "branch is ahead and we will do normal push"
-    git push --no-verify
+    echo "🔵 branch has commit that need to be pushed"
+    run_exit "git push --no-verify" 
+    echo "🔵 Run push command again to close this PR"
+    echo ""
+    echo ""
     exit 1
   else
     echo "is the same as remote"
@@ -165,14 +165,12 @@ else
     get_lines_diff
     pull_request_add_line_numbers $ISSUE "$ISSUE_TITLE $LINE_NUMBER"
     pull_request_merge $ISSUE
-
     DURATION_IN_SECONDS=$SECONDS
     echo " "
     echo " "
     echo "✅ Push script took $DURATION_IN_SECONDS seconds to run"
     echo " "
     echo " "
-
     codespace_close
     exit 1
   fi
