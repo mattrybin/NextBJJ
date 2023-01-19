@@ -16,8 +16,9 @@
 		6006
 	],
 	// Use 'postCreateCommand' to run commands after the container is created.
-	// "onCreateCommand": "pnpm install && pnpm build"
-	// "onCreateCommand": "git pull && pnpm install",
+	// "onCreateCommand": "pnpm install --frozen-lockfile && pnpm build"
+	// "onCreateCommand": "git pull --rebase && pnpm install --frozen-lockfile"
+	"onCreateCommand": "git pull --rebase --autostash && pnpm install --frozen-lockfile"
 	// "postCreateCommand": "git pull && pnpm install"
 	// Configure tool-specific properties.
 	// "customizations": {},
