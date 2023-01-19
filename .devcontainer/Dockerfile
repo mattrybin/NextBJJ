@@ -17,3 +17,12 @@ RUN cd && echo "alias save=\"git add . && git commit -m 'save'\"" >> .alias;
 RUN cd && echo "alias push=\"git add . && git commit -m 'save' && git push\"" >> .alias;
 RUN cd && echo "alias clean=\"git clean -Xdf\"" >> .alias;
 RUN cd && echo "alias install=\"pnpm install\"" >> .alias;
+
+# Speed up git
+RUN git config --global http.postBuffer 2048M
+RUN git config --global http.maxRequestBuffer 1024M
+RUN git config --global core.compression 9
+RUN git config --global ssh.postBuffer 2048M
+RUN git config --global ssh.maxRequestBuffer 1024M
+RUN git config --global pack.windowMemory 256m 
+RUN git config --global pack.packSizeLimit 256m
