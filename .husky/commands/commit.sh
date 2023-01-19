@@ -1,14 +1,30 @@
 #!/usr/bin/bash
 
+SECONDS=0
+AGO=0
+
+function run () {
+    AGO=$SECONDS
+    printf "🟡 Running $1: "
+    # pnpm test:e2e &> /dev/null
+    $1 &> /dev/null
+    ret=$?
+    if [ $ret = 0 ]; then
+        printf "🟢 completed "  
+        printf "in $(($SECONDS-$AGO))sec \n"
+    else
+        printf "🔴 Command: $1 failed with exit code: $? "
+        printf "in $(($SECONDS-$AGO))sec \n"
+    fi
+}
+
 echo " "
 echo " "
 echo "🟡 Starting commit script"
 echo " "
-SECONDS=0
-AGO=0
-AGO=$SECONDS && printf "Running pnpm lint: " && pnpm lint &> /dev/null && printf "🟢 Linting complete in $(($SECONDS-$AGO))sec \n"
-printf "Running pnpm test:e2e: " && pnpm test:e2e &> /dev/null || true && printf "🟢 E2E test complete in $(($SECONDS-$AGO))sec \n"
-AGO=$SECONDS && printf "Running pnpm test:manypkg: " && pnpm test:manypkg &> /dev/null && printf "🟢 manypkg complete in $(($SECONDS-$AGO))sec"
+run "pnpm lint" 
+run "pnpm test:e2e" 
+run "pnpm test:manypkg" 
 DURATION_IN_SECONDS=$SECONDS
 echo " "
 echo " "

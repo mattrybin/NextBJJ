@@ -2,7 +2,7 @@ const { Before, BeforeAll, AfterAll, After, setDefaultTimeout } = require("@cucu
 // you can choose other browsers like webkit or firefox according to your requirement
 const { chromium } = require("playwright");
 
-setDefaultTimeout(60000)
+setDefaultTimeout(20000)
 
 // launch the browser
 BeforeAll(async function () {
