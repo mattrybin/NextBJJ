@@ -120,13 +120,6 @@ wait_for_clean_status() {
 # echo " "
 echo "🔵 Starting push script"
 run_exit "pnpm install --silent" 
-  curl -S -s -o /dev/null \
-    -X POST \
-    -H "Accept: application/vnd.github+json" \
-    -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
-    -H "X-GitHub-Api-Version: 2022-11-28" \
-    https://api.github.com/repos/mattrybin/nextbjj/pulls \
-    -d "{\"issue\":$ISSUE,\"head\":\"issue-$ISSUE\",\"base\":\"master\"}"
 
 if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
   echo "🔵 Branch is master, will begin to create pull request"
@@ -135,20 +128,13 @@ if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
   run_exit "git pull --rebase" 
   run_exit "git checkout -t -b issue-$ISSUE" 
   run_exit "git push -u origin issue-$ISSUE --no-verify" 
-  exit 1
-  # Squash the commits into one empty message commit
-  # git reset --soft $(git merge-base HEAD origin/master)
-  # git commit -am "" --allow-empty-message --no-verify
-  # git pull --rebase
-  # git checkout -t -b "issue-$ISSUE"
-  # git push -u origin issue-$ISSUE --no-verify
-  # curl -S -s -o /dev/null \
-  #   -X POST \
-  #   -H "Accept: application/vnd.github+json" \
-  #   -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
-  #   -H "X-GitHub-Api-Version: 2022-11-28" \
-  #   https://api.github.com/repos/mattrybin/nextbjj/pulls \
-  #   -d "{\"issue\":$ISSUE,\"head\":\"issue-$ISSUE\",\"base\":\"master\"}"
+  curl -S -s -o /dev/null \
+    -X POST \
+    -H "Accept: application/vnd.github+json" \
+    -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
+    -H "X-GitHub-Api-Version: 2022-11-28" \
+    https://api.github.com/repos/mattrybin/nextbjj/pulls \
+    -d "{\"issue\":$ISSUE,\"head\":\"issue-$ISSUE\",\"base\":\"master\"}"
 
   # echo -e "\n⏰ Wait on CI to complete"
   #   wait_for_clean_status $ISSUE
@@ -167,26 +153,25 @@ if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
   # echo -e "\n✅ CI finished, 'git push' again to close the PR and shutdown codespace"
   # exit 1
 else
-  echo 'hell'
-  # if [[ -n $(git status -sb | grep "ahead") ]]; then
-  #   echo "branch is ahead and we will do normal push"
-  #   git push --no-verify
-  #   exit 1
-  # else
-  #   echo "is the same as remote"
-  #   wait_for_clean_status $ISSUE
-  #   get_lines_diff
-  #   pull_request_add_line_numbers $ISSUE "$ISSUE_TITLE $LINE_NUMBER"
-  #   pull_request_merge $ISSUE
+  if [[ -n $(git status -sb | grep "ahead") ]]; then
+    echo "branch is ahead and we will do normal push"
+    git push --no-verify
+    exit 1
+  else
+    echo "is the same as remote"
+    wait_for_clean_status $ISSUE
+    # get_lines_diff
+    # pull_request_add_line_numbers $ISSUE "$ISSUE_TITLE $LINE_NUMBER"
+    # pull_request_merge $ISSUE
 
-  #   DURATION_IN_SECONDS=$SECONDS
-  #   echo " "
-  #   echo " "
-  #   echo "✅ Push script took $DURATION_IN_SECONDS seconds to run"
-  #   echo " "
-  #   echo " "
+    DURATION_IN_SECONDS=$SECONDS
+    echo " "
+    echo " "
+    echo "✅ Push script took $DURATION_IN_SECONDS seconds to run"
+    echo " "
+    echo " "
 
-  #   codespace_close
-  #   exit 1
-  # fi
+    # codespace_close
+    exit 1
+  fi
 fi
