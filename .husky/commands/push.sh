@@ -119,11 +119,16 @@ wait_for_clean_status() {
 
 # echo " "
 echo "🔵 Starting push script"
-echo " "
 run_exit "pnpm install --silent" 
+  curl -S -s -o /dev/null \
+    -X POST \
+    -H "Accept: application/vnd.github+json" \
+    -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
+    -H "X-GitHub-Api-Version: 2022-11-28" \
+    https://api.github.com/repos/mattrybin/nextbjj/pulls \
+    -d "{\"issue\":$ISSUE,\"head\":\"issue-$ISSUE\",\"base\":\"master\"}"
 
 if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
-  echo " "
   echo "🔵 Branch is master, will begin to create pull request"
   run_exit "git reset --soft $(git merge-base HEAD origin/master)" 
   run_exit "git commit -am \"\" --allow-empty-message --no-verify" 
@@ -137,7 +142,7 @@ if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
   # git pull --rebase
   # git checkout -t -b "issue-$ISSUE"
   # git push -u origin issue-$ISSUE --no-verify
-  # curl \
+  # curl -S -s -o /dev/null \
   #   -X POST \
   #   -H "Accept: application/vnd.github+json" \
   #   -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
