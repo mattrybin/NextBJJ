@@ -6,7 +6,6 @@ AGO=0
 function run () {
     AGO=$SECONDS
     printf "🟡 Running $1: "
-    # pnpm test:e2e &> /dev/null
     $1 &> /dev/null
     ret=$?
     if [ $ret = 0 ]; then
