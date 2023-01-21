@@ -17,55 +17,54 @@ ISSUE_TITLE=$(curl -s -X GET "https://api.github.com/repos/mattrybin/nextbjj/iss
   -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" |
   gron | grep title | gron -u | jq -r ".title")
 
-function run_exit () {
-    AGO=$SECONDS
-    printf "🟡 Running $1: "
-    # pnpm test:e2e &> /dev/null
-    $1 &> /dev/null
-    ret=$?
-    if [ $ret = 0 ]; then
-        printf "🟢 completed "  
-        printf "in $(($SECONDS-$AGO))sec \n"
-    else
-        printf "🔴 Command: $1 failed with exit code: $? "
-        printf "in $(($SECONDS-$AGO))sec \n"
-        exit 1
-    fi
+function run_exit() {
+  AGO=$SECONDS
+  printf "🟡 Running $1: "
+  # pnpm test:e2e &> /dev/null
+  $1 &>/dev/null
+  ret=$?
+  if [ $ret = 0 ]; then
+    printf "🟢 completed "
+    printf "in $(($SECONDS - $AGO))sec \n"
+  else
+    printf "🔴 Command: $1 failed with exit code: $? "
+    printf "in $(($SECONDS - $AGO))sec \n"
+    exit 1
+  fi
 }
 
+get_lines_diff() {
+  git --no-pager diff --shortstat master
+  plus_raw=$(git --no-pager diff --shortstat origin/master | awk -F',' '{print $2}' | grep -o '[0-9]\+')
+  minus_raw=$(git --no-pager diff --shortstat origin/master | awk -F',' '{print $3}' | grep -o '[0-9]\+')
+  plus=$(if [ -n "$plus_raw" ]; then echo "$plus_raw"; else echo "0"; fi)
+  minus=$(if [ -n "$minus_raw" ]; then echo "$minus_raw"; else echo "0"; fi)
 
-
-get_lines_diff () {
-    git --no-pager diff --shortstat master
-    plus=$(git --no-pager diff --shortstat origin/master | awk -F',' '{print $2}' | grep -o '[0-9]\+')
-    minus=$(git --no-pager diff --shortstat origin/master | awk -F',' '{print $3}' | grep -o '[0-9]\+')
-    result=$(($plus-$minus))
-    if [ $result -lt 0 ] 
-    then
-        LINE_NUMBER="[$result]"
-    else 
-        LINE_NUMBER="[+$result]"
-    fi 
-    }
-
-
-pull_request_add_line_numbers () {
-curl \
-  -X PATCH \
-  -H "Accept: application/vnd.github+json" \
-  -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN"\
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  https://api.github.com/repos/$OWNER/$REPO/pulls/$1 \
-  -d '{"title":"new title"}'
+  result=$(($plus - $minus))
+  if [ $result -lt 0 ]; then
+    LINE_NUMBER="[$result]"
+  else
+    LINE_NUMBER="[+$result]"
+  fi
 }
 
-codespace_close () {
+pull_request_add_line_numbers() {
   curl \
-  -X DELETE \
-  -H "Accept: application/vnd.github+json" \
-  -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  "https://api.github.com/user/codespaces/$CODESPACE_NAME"
+    -X PATCH \
+    -H "Accept: application/vnd.github+json" \
+    -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
+    -H "X-GitHub-Api-Version: 2022-11-28" \
+    https://api.github.com/repos/$OWNER/$REPO/pulls/$1 \
+    -d '{"title":"new title"}'
+}
+
+codespace_close() {
+  curl \
+    -X DELETE \
+    -H "Accept: application/vnd.github+json" \
+    -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
+    -H "X-GitHub-Api-Version: 2022-11-28" \
+    "https://api.github.com/user/codespaces/$CODESPACE_NAME"
 }
 
 pull_request_status_check() {
@@ -88,14 +87,14 @@ pull_request_merge() {
     gron | grep merged | grep -q "true"
 }
 
-pull_request_add_line_numbers () {
-curl \
-  -X PATCH \
-  -H "Accept: application/vnd.github+json" \
-  -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN"\
-  -H "X-GitHub-Api-Version: 2022-11-28" \
-  https://api.github.com/repos/$OWNER/$REPO/pulls/$1 \
-  -d "{\"title\":\"$2 $3\"}"
+pull_request_add_line_numbers() {
+  curl \
+    -X PATCH \
+    -H "Accept: application/vnd.github+json" \
+    -H "Authorization: Bearer $CUSTOM_GITHUB_TOKEN" \
+    -H "X-GitHub-Api-Version: 2022-11-28" \
+    https://api.github.com/repos/$OWNER/$REPO/pulls/$1 \
+    -d "{\"title\":\"$2 $3\"}"
 }
 
 # pull_request_status_check
@@ -116,17 +115,16 @@ wait_for_clean_status() {
   done
 }
 
-
 echo "🔵 Starting push script"
-run_exit "pnpm install --silent" 
+run_exit "pnpm install --silent"
 
 if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
   echo "🔵 Branch is master, will begin to create pull request"
-  run_exit "git reset --soft $(git merge-base HEAD origin/master)" 
-  run_exit "git commit -am \"\" --allow-empty-message --no-verify" 
-  run_exit "git pull --rebase" 
-  run_exit "git checkout -t -b issue-$ISSUE" 
-  run_exit "git push -u origin issue-$ISSUE --no-verify" 
+  run_exit "git reset --soft $(git merge-base HEAD origin/master)"
+  run_exit "git commit -am \"\" --allow-empty-message --no-verify"
+  run_exit "git pull --rebase"
+  run_exit "git checkout -t -b issue-$ISSUE"
+  run_exit "git push -u origin issue-$ISSUE --no-verify"
   curl -S -s -o /dev/null \
     -X POST \
     -H "Accept: application/vnd.github+json" \
@@ -136,25 +134,25 @@ if [[ "$BRANCH" =~ $PROTECTED_BRANCHES ]]; then
     -d "{\"issue\":$ISSUE,\"head\":\"issue-$ISSUE\",\"base\":\"master\"}"
 
   echo -e "\n⏰ Wait on CI to complete"
-    wait_for_clean_status $ISSUE
-    get_lines_diff
-    pull_request_add_line_numbers $ISSUE "$ISSUE_TITLE $LINE_NUMBER"
-    pull_request_merge $ISSUE
+  wait_for_clean_status $ISSUE
+  get_lines_diff
+  pull_request_add_line_numbers $ISSUE "$ISSUE_TITLE $LINE_NUMBER"
+  pull_request_merge $ISSUE
 
-    DURATION_IN_SECONDS=$SECONDS
-    echo " "
-    echo " "
-    echo "✅ Push script took $DURATION_IN_SECONDS seconds to run"
-    echo " "
-    echo " "
+  DURATION_IN_SECONDS=$SECONDS
+  echo " "
+  echo " "
+  echo "✅ Push script took $DURATION_IN_SECONDS seconds to run"
+  echo " "
+  echo " "
 
-    codespace_close
+  codespace_close
   echo -e "\n✅ CI finished, 'git push' again to close the PR and shutdown codespace"
   exit 1
 else
   if [[ -n $(git status -sb | grep "ahead") ]]; then
     echo "🔵 branch has commit that need to be pushed"
-    run_exit "git push --no-verify" 
+    run_exit "git push --no-verify"
     echo "🔵 Run push command again to close this PR"
     echo ""
     echo ""
