@@ -3,6 +3,7 @@
         "jsx": "react-jsx",
         "target": "ES2022",
         "module": "ESNext",
+        "types": ["vitest/importMeta"],
         "moduleResolution": "node",
         "sourceMap": true,
         "esModuleInterop": true,
