@@ -7,10 +7,11 @@
     "dev": "vite --port 6000",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@nextbjj/form": "1.0.0",
     "@nextbjj/ui": "1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"

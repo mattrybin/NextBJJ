@@ -4,6 +4,9 @@
     "$PORT"
   ],
   "pipeline": {
+    "storybook": {
+      "cache": false
+    },
     "start": {
       "cache": false
     },
@@ -21,6 +24,7 @@
         ".next/**"
       ]
     },
+    "dev:packages": {},
     "dev:test": {
       "cache": false
     },

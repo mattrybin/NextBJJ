@@ -19,7 +19,7 @@ export function add(...args: number[]) {
 }
 
 
-// in-source test suites
+//eslint-disable-next-line turbo/no-undeclared-env-vars
 if (import.meta.vitest) {
   const { it, expect } = import.meta.vitest
   it('add', () => {
@@ -28,3 +28,4 @@ if (import.meta.vitest) {
     expect(add(1, 2, 3)).toBe(6)
   })
 }
+
