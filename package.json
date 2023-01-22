@@ -8,6 +8,8 @@
     "services/*"
   ],
   "scripts": {
+    "test:storybook": "turbo run storybook",
+    "dev:packages": "turbo run dev --scope=@nextbjj/form",
     "start:web": "turbo run start --scope=@nextbjj/web",
     "test:yarnhook": "yarnhook",
     "test:manypkg": "manypkg check",

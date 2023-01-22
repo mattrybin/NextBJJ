@@ -167,6 +167,7 @@ importers:
   services/storybook:
     specifiers:
       '@babel/core': ^7.20.12
+      '@nextbjj/form': 1.0.0
       '@nextbjj/ui': 1.0.0
       '@storybook/addon-actions': ^6.5.15
       '@storybook/addon-essentials': ^6.5.15
@@ -185,6 +186,7 @@ importers:
       typescript: ^4.9.4
       vite: ^4.0.4
     dependencies:
+      '@nextbjj/form': link:../../packages/shared-form
       '@nextbjj/ui': link:../../packages/shared-ui
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
