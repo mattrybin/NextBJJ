@@ -19,8 +19,8 @@ export function add(...args: number[]) {
 }
 
 
-// in-source test suites
-if (import.meta.vitest) {
+// eslint-disable-next-line turbo/no-undeclared-env-vars
+if (import.meta.vitest && process.env.NODE_ENV === "test") {
   const { it, expect } = import.meta.vitest
   it('add', () => {
     expect(add()).toBe(0)

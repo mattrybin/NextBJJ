@@ -27,7 +27,7 @@
     },
     "scripts": {
         "dev": "tsup --watch",
-        "build": "tsup",
+        "build": "tsup --env.DEV_TEST true",
         "test": "vitest run",
         "test:watch": "vitest",
         "lint": "tsc"
