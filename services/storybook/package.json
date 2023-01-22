@@ -11,8 +11,8 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
-    "@nextbjj/ui": "1.0.0",
     "@nextbjj/form": "1.0.0",
+    "@nextbjj/ui": "1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
