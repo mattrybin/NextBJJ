@@ -45,7 +45,7 @@ const machine =
       }
     }
   })
-export const Text = ({ config = {} }: { config: typeof defaultConfig | {} }) => {
+export const Text = ({ config = {} }: { config?: typeof defaultConfig | {} }) => {
   const [current, send] = useMachine(machine, {
     context: { ...defaultConfig, ...config },
     actions: {
