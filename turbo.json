@@ -5,6 +5,9 @@
   ],
   "pipeline": {
     "storybook": {
+      "dependsOn": [
+        "^build"
+      ],
       "cache": false
     },
     "start": {
