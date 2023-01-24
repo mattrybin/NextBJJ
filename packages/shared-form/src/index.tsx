@@ -1,6 +1,2 @@
 export * from './Example';
-export const Input = () => {
-    return (
-        <div>awesome</div>
-    )
-}
+export { Text as InputText } from "./inputs/Text"
