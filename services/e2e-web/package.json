@@ -11,7 +11,7 @@
     "test:e2e": "cucumber-js --publish-quiet --require cucumber.conf.js --require steps/**/*.js"
   },
   "dependencies": {
-    "playwright": "1.29.2",
+    "playwright": "1.30.0",
     "start-server-and-test": "^1.15.2",
     "web": "0.0.2"
   },
@@ -20,7 +20,7 @@
     "@cucumber/messages": "^21.0.1",
     "@cucumber/pretty-formatter": "^1.0.0",
     "@nextbjj/tsconfig": "0.0.0",
-    "@playwright/test": "1.29.2",
+    "@playwright/test": "1.30.0",
     "concurrently": "^7.6.0"
   }
 }
