@@ -28,6 +28,7 @@
     },
     "dependencies": {
         "@xstate/react": "^3.0.2",
-        "xstate": "^4.35.2"
+        "xstate": "^4.35.2",
+        "config": "0.0.0"
     }
 }
