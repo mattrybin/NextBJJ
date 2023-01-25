@@ -8,7 +8,7 @@
     "services/*"
   ],
   "scripts": {
-    "dev:storybook": "turbo dev --filter=@nextbjj/storybook --no-daemon",
+    "dev:storybook": "turbo dev --filter=@nextbjj/storybook --filter=@nextbjj/form --no-daemon",
     "test:storybook": "turbo run storybook --no-daemon",
     "dev:packages": "turbo run dev --scope=@nextbjj/form",
     "start:web": "turbo run start --scope=@nextbjj/web",
