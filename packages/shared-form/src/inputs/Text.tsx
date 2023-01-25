@@ -62,7 +62,7 @@ export const Text = ({ config = {} }: { config?: typeof defaultConfig | {} }) =>
   });
   console.log(current.value)
   return (
-    <div className="h-20 bg-blue-500">
+    <div className="h-20 bg-red-800 w-80">
       <div className="text-green-100 font-black">Hello good</div>
       <input className="bg-red-500" onChange={(e) => send({ type: "ON_CHANGE", value: e.target.value })} type="text" value={current.context.value} placeholder="current" />
     </div>

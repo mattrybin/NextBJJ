@@ -1,4 +1,4 @@
-import '../src/styles.css';
+import '../src/output.css';
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
