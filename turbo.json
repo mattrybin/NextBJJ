@@ -1,8 +1,5 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": [
-    "$PORT"
-  ],
   "pipeline": {
     "storybook": {
       "dependsOn": [
@@ -45,5 +42,8 @@
     "dev:core": {
       "cache": false
     }
-  }
+  },
+  "globalEnv": [
+    "PORT"
+  ]
 }
