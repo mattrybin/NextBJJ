@@ -62,9 +62,9 @@ export const Text = ({ config = {} }: { config?: typeof defaultConfig | {} }) =>
   });
   console.log(current.value)
   return (
-    <div className="h-20 bg-red-800 w-80 h-80">
-      <div className="text-green-100 font-black">Hello good</div>
-      <input className="bg-red-500" onChange={(e) => send({ type: "ON_CHANGE", value: e.target.value })} type="text" value={current.context.value} placeholder="current" />
+    <div className="">
+      <div className="text-slate-700 font-black mb-5">Default</div>
+      <input className="text-slate-700 font-semibold h-15 rounded-sm w-full border-2 border-slate-300 placeholder:font-semibold placeholder-slate-400" onChange={(e) => send({ type: "ON_CHANGE", value: e.target.value })} type="text" value={current.context.value} placeholder="Your email address" />
     </div>
   )
 }
