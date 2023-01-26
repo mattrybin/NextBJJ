@@ -1,13 +1,9 @@
-// export const Button: React.FunctionComponent<{ text: string }> = ({ text }) => {
-//   return <button>{text}</button>
-// }
-
 interface Props {
   primary?: boolean;
   size?: "small" | "large";
   label?: string;
 }
- 
+
 export const Button = ({
   primary = false,
   label = "Boop",
