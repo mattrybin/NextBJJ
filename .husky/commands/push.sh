@@ -20,7 +20,6 @@ ISSUE_TITLE=$(curl -s -X GET "https://api.github.com/repos/mattrybin/nextbjj/iss
 function run_exit() {
   AGO=$SECONDS
   printf "🟡 Running $1: "
-  # pnpm test:e2e &> /dev/null
   $1 &>/dev/null
   ret=$?
   if [ $ret = 0 ]; then
@@ -97,7 +96,6 @@ pull_request_add_line_numbers() {
     -d "{\"title\":\"$2 $3\"}"
 }
 
-# pull_request_status_check
 attempt_counter=0
 max_attempts=200
 

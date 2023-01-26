@@ -1,5 +1,4 @@
 const { Before, BeforeAll, AfterAll, After, setDefaultTimeout } = require("@cucumber/cucumber");
-// you can choose other browsers like webkit or firefox according to your requirement
 const { chromium } = require("playwright");
 
 setDefaultTimeout(20000)

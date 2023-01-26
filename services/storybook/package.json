@@ -8,7 +8,7 @@
     "dev:playground": "vite --port 6100 --host 0.0.0.0",
     "dev:storybook": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
     "dev": "concurrently -k pnpm:dev:*",
-    "build": "tsc && vite build",
+    "build": "npx tailwindcss -i ./src/input.css -o ./src/output.css && tsc && vite build",
     "preview": "vite preview",
     "build-storybook": "build-storybook"
   },
