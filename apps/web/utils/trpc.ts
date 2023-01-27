@@ -1,6 +1,6 @@
-import { httpBatchLink } from '@trpc/client';
-import { createTRPCNext } from '@trpc/next';
-import type { AppRouter } from '../../../services/api/src/index';
+import { httpBatchLink } from "@trpc/client"
+import { createTRPCNext } from "@trpc/next"
+import type { AppRouter } from "../../../services/api/src/index"
 
 export const trpc = createTRPCNext<AppRouter>({
   config() {
@@ -10,7 +10,7 @@ export const trpc = createTRPCNext<AppRouter>({
           url: "http://localhost:2022",
         }),
       ],
-    };
+    }
   },
   ssr: false,
-});
+})
