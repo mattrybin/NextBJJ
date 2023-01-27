@@ -88,7 +88,7 @@ export const Text = ({ config = {} }: { config?: typeof defaultConfig | {} }) =>
       <div className="relative group">
         {/* <div className="text-slate-500">{current.context.focused ? "True" : "False"}</div> */}
         <input
-          className="text-slate-700 selection:bg-blue-300 focus:shadow-none focus:ring-0 focus:border-2 focus:border-slate-300 relative font-semibold h-15 rounded-sm w-full border-2 border-slate-300 placeholder:font-semibold placeholder-slate-400"
+          className="text-slate-700 caret-blue-500 selection:bg-blue-300 focus:shadow-none focus:ring-0 focus:border-2 focus:border-slate-300 relative font-semibold h-15 rounded-md w-full border-2 border-slate-300 placeholder:font-semibold placeholder-slate-400"
           type="text"
           onBlur={() => send({ type: "ON_BLUR", value: false })}
           onFocus={() => send({ type: "ON_FOCUS", value: true })}
