@@ -1,10 +1,10 @@
-import { describe, test, expect} from 'vitest'
+import { describe, test, expect } from "vitest"
 
-export const helloWorld = () => 'Hello World!'
+export const helloWorld = () => "Hello World!"
 
 // test
 describe("helloWorld", () => {
-	test("returns 'Hello World!'", () => {
-		expect(helloWorld()).toBe('Hello World!')
-	})
+  test("returns 'Hello World!'", () => {
+    expect(helloWorld()).toBe("Hello World!")
+  })
 })

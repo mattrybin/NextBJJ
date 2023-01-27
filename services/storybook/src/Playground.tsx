@@ -1,9 +1,5 @@
 function Playground() {
-  return (
-    <div className="playground">
-      Playground
-    </div>
-  )
+  return <div className="playground">Playground</div>
 }
 
 export default Playground

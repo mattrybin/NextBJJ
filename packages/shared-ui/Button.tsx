@@ -1,14 +1,10 @@
 interface Props {
-  primary?: boolean;
-  size?: "small" | "large";
-  label?: string;
+  primary?: boolean
+  size?: "small" | "large"
+  label?: string
 }
 
-export const Button = ({
-  primary = false,
-  label = "Boop",
-  size = "small",
-}: Props) => {
+export const Button = ({ primary = false, label = "Boop", size = "small" }: Props) => {
   return (
     <button
       style={{
@@ -18,5 +14,5 @@ export const Button = ({
     >
       WORKS{label}
     </button>
-  );
-};
+  )
+}
