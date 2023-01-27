@@ -8,5 +8,6 @@
 		6006,
 		6100
 	],
-	"onCreateCommand": "git pull --rebase --autostash && pnpm install --frozen-lockfile"
+	"onCreateCommand": "git pull --rebase --autostash && pnpm install --frozen-lockfile",
+	"postStartCommand": "git pull --rebase --autostash && pnpm install --frozen-lockfile"
 }
