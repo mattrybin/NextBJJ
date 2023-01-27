@@ -8,7 +8,7 @@
         "dist"
     ],
     "scripts": {
-        "dev": "tsup --watch",
+        "dev": "concurrently --restart-tries -1 \"tsup --watch\"",
         "build": "tsup",
         "test": "vitest run",
         "test:watch": "vitest",
@@ -28,6 +28,7 @@
     },
     "dependencies": {
         "@xstate/react": "^3.0.2",
+        "concurrently": "^7.6.0",
         "config": "0.0.0",
         "xstate": "^4.35.2"
     }

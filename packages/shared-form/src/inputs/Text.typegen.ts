@@ -8,12 +8,13 @@ export interface Typegen0 {
   }
   invokeSrcNameMap: {}
   missingImplementations: {
-    actions: "updateValue"
+    actions: "updateFocused" | "updateValue"
     delays: never
     guards: "isEmpty" | "isString"
     services: never
   }
   eventsCausingActions: {
+    updateFocused: "ON_BLUR" | "ON_FOCUS"
     updateValue: "ON_CHANGE"
   }
   eventsCausingDelays: {}
