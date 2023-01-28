@@ -1,4 +1,5 @@
 {
   "git.postCommitCommand": "none",
-  "eslint.packageManager": "pnpm"
+  "eslint.packageManager": "pnpm",
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

@@ -7,6 +7,7 @@ const defaultConfig = {
   label: "Label here" as string,
   focused: false,
   disabled: false,
+  error: true,
 }
 
 const machine =
@@ -100,6 +101,7 @@ export const Text = ({ config = {} }: { config?: typeof defaultConfig | {} }) =>
           value={value}
           placeholder={placeholder}
         />
+        <Error />
         {onFocusedAndNotDisabled && (
           <div className="absolute inset-0 -m-6 border-blue-500 border-2 border-solid pointer-events-none rounded-md" />
         )}
@@ -107,6 +109,17 @@ export const Text = ({ config = {} }: { config?: typeof defaultConfig | {} }) =>
           <div className="absolute inset-0 -m-6 group-focus:border-blue-500 group-focus:border-2 group-hover:border-blue-500 group-hover:border-dashed group-hover:border-2 pointer-events-none rounded-md" />
         )}
       </div>
+    </div>
+  )
+}
+
+function Error() {
+  return (
+    <div
+      className="bg-green-500"
+      style={{ color: "blue" }}
+    >
+      ERROR is AWESOME
     </div>
   )
 }

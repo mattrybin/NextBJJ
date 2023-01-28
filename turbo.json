@@ -21,7 +21,8 @@
       ],
       "outputs": [
         "dist/**",
-        ".next/**"
+        ".next/**",
+        "storybook-static/**"
       ]
     },
     "dev:packages": {},

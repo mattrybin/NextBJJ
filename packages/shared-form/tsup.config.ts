@@ -6,14 +6,9 @@ export default defineConfig({
   treeshake: true,
   splitting: false,
   sourcemap: true,
-  clean: true,
+  clean: false,
   minify: true,
-  dts: true,
+  dts: false,
   format: ["cjs", "esm"],
   external: ["react"],
-  esbuildPlugins: [
-    replace({
-      "import.meta.vitest": "undefined",
-    }),
-  ],
 })
