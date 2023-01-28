@@ -10,7 +10,7 @@ export default {
 const Template: ComponentStory<typeof InputText> = (args) => (
   <div>
     <InputText config={{ label: "Full Name", placeholder: "Your full name" }} />
-    <InputText config={{ label: "Email", placeholder: "Your email address" }} />
+    <InputText config={{ disabled: true, label: "Email", placeholder: "Your email address" }} />
     <InputText config={{ label: "Username", placeholder: "Your username" }} />
   </div>
 )
