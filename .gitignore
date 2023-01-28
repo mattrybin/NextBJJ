@@ -33,9 +33,9 @@ yarn-error.log*
 # turbo
 .turbo
 
-
 # custom
 .husky/random.sh
 *.tsbuildinfo
 package-lock.json
 yarn.lock
+storybook-static
