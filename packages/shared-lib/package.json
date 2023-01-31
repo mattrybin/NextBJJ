@@ -1,17 +1,17 @@
 {
   "name": "@nextbjj/shared-lib",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
+    "dev": "vite",
     "preview": "vite preview",
     "test": "vitest"
   },
   "devDependencies": {
-    "typescript": "^4.9.4",
-    "vite": "^4.0.4",
-    "vitest": "^0.26.3"
+    "typescript": "4.9.4",
+    "vite": "4.0.4",
+    "vitest": "0.26.3"
   }
 }

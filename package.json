@@ -2,34 +2,34 @@
   "name": "@nextbjj/repo",
   "version": "0.0.0",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*",
-    "services/*"
-  ],
   "scripts": {
-    "dev:storybook": "turbo run build && turbo dev --filter=@nextbjj/storybook --filter=@nextbjj/form --no-daemon",
-    "test:storybook": "turbo run storybook --no-daemon",
-    "dev:packages": "turbo run dev --scope=@nextbjj/form",
-    "start:web": "turbo run start --scope=@nextbjj/web",
-    "test:yarnhook": "yarnhook",
-    "test:manypkg": "manypkg check",
-    "test:manypkg:fix": "manypkg fix",
-    "test:e2e": "turbo run build && turbo run e2e:test",
-    "e2e": "turbo run build && turbo run e2e:test",
-    "ci": "turbo run build && turbo run e2e:test lint",
     "build": "turbo run build",
+    "ci": "turbo run build && turbo run e2e:test lint",
     "dev": "turbo run dev --parallel",
     "dev:core": "turbo run dev --parallel --filter=api --filter=web",
-    "lint": "turbo run lint",
+    "dev:packages": "turbo run dev --scope=@nextbjj/form",
+    "dev:storybook": "turbo run build && turbo dev --filter=@nextbjj/storybook --filter=@nextbjj/form --no-daemon",
+    "e2e": "turbo run build && turbo run e2e:test",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint": "turbo run lint",
+    "preinstall": "npx only-allow pnpm",
     "prepare": "chmod +x ./node_modules/husky/lib/bin.js && husky install",
-    "preinstall": "npx only-allow pnpm"
+    "start:web": "turbo run start --scope=@nextbjj/web",
+    "test:e2e": "turbo run build && turbo run e2e:test",
+    "test:storybook": "turbo run storybook --no-daemon",
+    "test:yarnhook": "yarnhook"
+  },
+  "dependencies": {
+    "@nextbjj/eslint-config-custom": "0.0.0",
+    "husky": "8.0.3",
+    "lint-staged": "13.1.0",
+    "prettier": "2.8.2",
+    "turbo": "1.6.3",
+    "yarnhook": "0.6.0"
   },
   "engines": {
     "node": ">=14.0.0"
   },
-  "packageManager": "pnpm@7.19.0",
   "lint-staged": {
     "apps/**/*.{js,ts,jsx,tsx}": [
       "eslint --fix"
@@ -38,13 +38,10 @@
       "prettier --write"
     ]
   },
-  "dependencies": {
-    "@manypkg/cli": "^0.19.2",
-    "@nextbjj/eslint-config-custom": "0.0.0",
-    "husky": "^8.0.3",
-    "lint-staged": "^13.1.0",
-    "prettier": "^2.8.2",
-    "turbo": "^1.6.3",
-    "yarnhook": "^0.6.0"
-  }
+  "packageManager": "pnpm@7.19.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "services/*"
+  ]
 }
