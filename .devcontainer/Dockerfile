@@ -10,12 +10,16 @@ RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master
 RUN npx playwright install
 RUN npx playwright install-deps
 RUN curl -sS https://webi.sh/shfmt | sh
+RUN npm install -g npm-check-updates syncpack
 RUN cd && curl https://raw.githubusercontent.com/mattrybin/dotfiles/master/.alias >.alias
 RUN cd && curl https://raw.githubusercontent.com/mattrybin/dotfiles/master/.zshrc >.zshrc
-RUN cd && echo "alias save=\"pnpm format && git add . && git commit -m 'save'\"" >>.alias
-RUN cd && echo "alias push=\"pnpm format && git add . && git commit -m 'save' --quiet || true && git push\"" >>.alias
+RUN cd && echo "alias packages=\"syncpack fix-mismatches && syncpack set-semver-ranges && syncpack format\"" >>.alias
+RUN cd && echo "alias save=\"packages && pnpm format && git add . && git commit -m 'save'\"" >>.alias
+RUN cd && echo "alias push=\"packages && pnpm format && git add . && git commit -m 'save' --quiet || true && git push\"" >>.alias
 RUN cd && echo "alias clean=\"git clean -Xdf\"" >>.alias
 RUN cd && echo "alias install=\"pnpm install\"" >>.alias
+RUN cd && echo "alias update=\"npm-check-updates -i --deep -x '@nextbjj/*' -t latest\"" >>.alias
+RUN cd && echo "alias latest=\"npm-check-updates -i --deep -x '@nextbjj/*' -t newest\"" >>.alias
 
 # Speed up git
 RUN git config --global http.postBuffer 2048M

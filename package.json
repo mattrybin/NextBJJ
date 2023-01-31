@@ -16,13 +16,10 @@
     "prepare": "chmod +x ./node_modules/husky/lib/bin.js && husky install",
     "start:web": "turbo run start --scope=@nextbjj/web",
     "test:e2e": "turbo run build && turbo run e2e:test",
-    "test:manypkg": "manypkg check",
-    "test:manypkg:fix": "manypkg fix",
     "test:storybook": "turbo run storybook --no-daemon",
     "test:yarnhook": "yarnhook"
   },
   "dependencies": {
-    "@manypkg/cli": "0.19.2",
     "@nextbjj/eslint-config-custom": "0.0.0",
     "husky": "8.0.3",
     "lint-staged": "13.1.0",
