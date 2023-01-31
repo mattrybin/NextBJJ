@@ -24,7 +24,6 @@ echo "🔵 Starting commit script"
 run "pnpm format"
 run "pnpm lint"
 run "pnpm test:e2e"
-run "pnpm test:manypkg"
 DURATION_IN_SECONDS=$SECONDS
 echo "🟢 Commit script took $DURATION_IN_SECONDS seconds to run"
 echo " "

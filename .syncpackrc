@@ -1,0 +1,36 @@
+{
+  "dev": true,
+  "filter": ".",
+  "indent": "  ",
+  "overrides": true,
+  "peer": true,
+  "pnpmOverrides": true,
+  "prod": true,
+  "resolutions": true,
+  "workspace": true,
+  "semverGroups": [],
+  "semverRange": "",
+  "sortAz": [
+    "dependencies",
+    "devDependencies",
+    "peerDependencies",
+    "resolutions",
+    "keywords",
+    "contributors"
+  ],
+  "sortFirst": [
+    "name",
+    "description",
+    "version",
+    "author",
+    "private",
+    "type",
+    "types",
+    "main",
+    "module",
+    "files",
+    "scripts"
+  ],
+  "source": [],
+  "versionGroups": []
+}

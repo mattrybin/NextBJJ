@@ -3,24 +3,24 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "test": "pnpm test:e2e",
-    "start:web": "cd ../../apps/web && pnpm start",
-    "start:api": "cd ../../services/api && pnpm start",
     "dev:test": "pnpm test:e2e",
     "e2e:test": "conc -k --success first \"npx wait-on http://127.0.0.1:3100 && npx wait-on http://127.0.0.1:2022 && pnpm test:e2e\" \"pnpm start:web\" \"pnpm start:api\"",
+    "start:api": "cd ../../services/api && pnpm start",
+    "start:web": "cd ../../apps/web && pnpm start",
+    "test": "pnpm test:e2e",
     "test:e2e": "cucumber-js --publish-quiet --require cucumber.conf.js --require steps/**/*.js"
   },
   "dependencies": {
     "playwright": "1.30.0",
-    "start-server-and-test": "^1.15.2",
+    "start-server-and-test": "1.15.2",
     "web": "0.0.2"
   },
   "devDependencies": {
-    "@cucumber/cucumber": "^8.10.0",
-    "@cucumber/messages": "^21.0.1",
-    "@cucumber/pretty-formatter": "^1.0.0",
+    "@cucumber/cucumber": "8.10.0",
+    "@cucumber/messages": "21.0.1",
+    "@cucumber/pretty-formatter": "1.0.0",
     "@nextbjj/tsconfig": "0.0.0",
     "@playwright/test": "1.30.0",
-    "concurrently": "^7.6.0"
+    "concurrently": "7.6.0"
   }
 }
